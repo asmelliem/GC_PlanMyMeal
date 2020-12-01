@@ -1,4 +1,5 @@
 ﻿using GC_PlanMyMeal.Models;
+using GC_PlanMyMeal.RecipeService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,11 +12,10 @@ namespace GC_PlanMyMeal.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly ISearchRecipe _recipeClient;
+        public HomeController(ISearchRecipe recipeClient)
         {
-            _logger = logger;
+            _recipeClient = recipeClient;
         }
 
         public IActionResult Index()
@@ -23,15 +23,19 @@ namespace GC_PlanMyMeal.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public async Task<IActionResult> SearchRecipe(int Id)
         {
-            return View();
+            var recipe = await _recipeClient.SearchForRecipeById(Id);
+            var recipeResult = new RecipeSearchResult()
+            {
+                Id = recipe.Id,
+                Title = recipe.Title,
+                ReadyInMinutes = recipe.ReadyInMinutes,
+                Servings = recipe.Servings,
+                SourceUrl = recipe.SourceUrl
+            };
+            return View(recipeResult);
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
     }
 }

@@ -1,3 +1,4 @@
+using GC_PlanMyMeal.RecipeService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -13,6 +14,7 @@ namespace GC_PlanMyMeal
 {
     public class Startup
     {
+        private string _apiKey = null;
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -24,6 +26,11 @@ namespace GC_PlanMyMeal
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            _apiKey = Configuration["apiKey"];
+            services.AddHttpClient<ISearchRecipe, RecipeClient>(client =>
+            {
+                client.BaseAddress = new Uri("https://api.spoonacular.com/");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

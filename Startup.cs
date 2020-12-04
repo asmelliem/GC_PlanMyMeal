@@ -1,7 +1,10 @@
+using GC_PlanMyMeal.Areas.Identity.Data;
 using GC_PlanMyMeal.RecipeService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,11 +29,18 @@ namespace GC_PlanMyMeal
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddRazorPages();
             _apiKey = Configuration["apiKey"];
             services.AddHttpClient<ISearchRecipe, RecipeClient>(client =>
             {
                 client.BaseAddress = new Uri("https://api.spoonacular.com/");
             });
+
+            services.AddDbContext<GC_PlanMyMealIdentityDbContext>(options =>
+                options.UseSqlServer(Configuration["ConnectionStrings:PlanMyMealDb"]));
+
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<GC_PlanMyMealIdentityDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,6 +61,7 @@ namespace GC_PlanMyMeal
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -58,6 +69,7 @@ namespace GC_PlanMyMeal
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }

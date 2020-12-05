@@ -2,33 +2,81 @@
     ViewData["Title"] = "Home Page";
 }
 
-<form asp-controller="Home" asp-action="SearchRecipe" method="post">
-    <div class="form-group">
-        <label>ID</label>
-        <input name="Id" type="number" />
-    </div>
-    <div class="form-group">
-        <label>Recipe Name</label>
-        <input name="Name" type="text" />
-    </div>
-    <div class="form-group">
-        <label>Diet</label>
-        <input name="Diet" type="text" />
-    </div>
-    <div class="form-group">
+
+<div style="width:500px;float:left">
+    <h2>Recipe of the Day</h2>
+    <img src="https://spoonacular.com/recipeImages/1487863-312x231.jpg" width="312" height="231" class="center">
+
+</div>
+
+
+<div style="width:500px;float:right;text-align:left">
+    <h2 class="text-center">Search Recipe</h2>
+    <form asp-controller="Home" asp-action="SearchRecipe" method="post">
+        @*<div class="form-group">
+                <label>ID</label>
+                <input name="Id" type="Number" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Name</label>
+                <input name="Name" type="Text" class="form-control">
+            </div>*@
+        <div class="form-group">
+            <label>Diet</label>
+            <input name="Diet" type="Text" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>List Intolerances</label>
+            <input name="Intolerances" type="Text" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Maximum Calories</label>
+            <input name="MaxCalori" type="Number" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Maximum Carbs</label>
+            <input name="MaxCarb" type="Number" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Maximum Protein</label>
+            <input name="MaxProtein" type="Number" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Minimum Protein</label>
+            <input name="MinProtein" type="Number" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary mb-2">Search</button>
+    </form>
+</div>
+
+
+@*<form asp-controller="Home" asp-action="SearchRecipe" method="post">
+        <div class="form-group">
+            <label>ID</label>
+            <input class ="form-group" name="Id" type="number" />
+        </div>
+        <div class="form-group">
+            <label>Recipe Name</label>
+            <input name="Name" type="text" />
+        </div>
+        <div class="form-group">
+            <label>Diet</label>
+            <input name="Diet" type="text" />
+        </div>
+        <div class="form-group">
+            <label>List Intolerances</label>
+            <input name="Intolerances" type="text" />
+        </div>
         <label>List Intolerances</label>
         <input name="Intolerances" type="text" />
-    </div>
-    <label>List Intolerances</label>
-    <input name="Intolerances" type="text" />
-    <label>Maximum Calories</label>
-    <input name="MaxCalorie" type="number" />
-    <label>Maximum Carbs</label>
-    <input name="MaxCarb" type="number" />
-    <label>Minimum Protien</label>
-    <input name="MinProtien" type="number" />
-    <label>Maximum Protien</label>
-    <input name="MaxProtein" type="number" />
-    <button type="submit" value="Search"></button>
+        <label>Maximum Calories</label>
+        <input name="MaxCalorie" type="number" />
+        <label>Maximum Carbs</label>
+        <input name="MaxCarb" type="number" />
+        <label>Minimum Protien</label>
+        <input name="MinProtien" type="number" />
+        <label>Maximum Protien</label>
+        <input name="MaxProtein" type="number" />
+        <button type="submit" value="Search"></button>
 
-</form>
+    </form>*@

@@ -1,4 +1,5 @@
 using GC_PlanMyMeal.Areas.Identity.Data;
+using GC_PlanMyMeal.Configuration;
 using GC_PlanMyMeal.RecipeService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -17,7 +18,6 @@ namespace GC_PlanMyMeal
 {
     public class Startup
     {
-        private string _apiKey = null;
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -30,7 +30,12 @@ namespace GC_PlanMyMeal
         {
             services.AddControllersWithViews();
             services.AddRazorPages();
-            _apiKey = Configuration["apiKey"];
+            var apiKey = Configuration["apiKey"];
+            var spoonacularConfig = new SpoonacularConfiguration()
+            {
+                ApiKey = apiKey
+            };
+            services.AddSingleton(spoonacularConfig);
             services.AddHttpClient<ISearchRecipe, RecipeClient>(client =>
             {
                 client.BaseAddress = new Uri("https://api.spoonacular.com/");

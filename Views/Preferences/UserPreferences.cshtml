@@ -1,0 +1,59 @@
+﻿@model UserPreferences
+@{
+    ViewBag.Title = "User Preferences";
+}
+
+<h3>Please Choose Your Preferences For The Meal Of The Day</h3>
+<br />
+
+@using (Html.BeginForm("SavePrefrences", "Preferences", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.DropDownListFor(m => m.ClientSelectedPreferences.Diet, new SelectList(Model.PreferencesOptions.Diet), "Choose Your Diet", new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.Label("Please Select Your Intolerances:")
+        @foreach (var intolerance in Model.PreferencesOptions.Intolerances)
+        {
+            <div class="form-check">
+                <div class="checkbox">                    
+                    @Html.CheckBox(intolerance, false)
+                    @Html.LabelFor(model => model.PreferencesOptions.Intolerances, intolerance)
+                </div>
+            </div>
+        }
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            @Html.Label("Max Calorie")
+        </div>
+        <div class="form-group col-md-6">
+            @Html.Label("Max Carb")
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            @Html.TextBoxFor(m => m.ClientSelectedPreferences.MaxCalorie)
+        </div>
+        <div class="form-group col-md-6">
+            @Html.TextBoxFor(m => m.ClientSelectedPreferences.MaxCarb)
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            @Html.Label("Min Protein")
+        </div>
+        <div class="form-group col-md-6">
+            @Html.Label("Max Protein")
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            @Html.TextBoxFor(m => m.ClientSelectedPreferences.MinProtein)
+        </div>
+        <div class="form-group col-md-6">
+            @Html.TextBoxFor(m => m.ClientSelectedPreferences.MaxProtein)
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary mb-2">Find Recipe</button>
+}

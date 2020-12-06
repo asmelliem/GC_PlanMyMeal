@@ -32,9 +32,7 @@ namespace GC_PlanMyMeal.RecipeService
         //&intolerances=egg&diet=vegetarian&maxCarbs=400&maxProtein=15&minProtein=1
         public async Task<Recipe> SearchForRecipeByQuery (string diet, string intolerance, int? maxCalorie, int? maxCarb, int? maxProtein, int? minProtein)
         {
-
             StringBuilder query = new StringBuilder();
-            
             if(diet != null){ query.Append($"&diet={diet}"); }
             if (intolerance != null) { query.Append($"&intolerances={intolerance}"); }
             if (maxCalorie.HasValue) { query.Append($"&maxCalorie={maxCalorie}"); }

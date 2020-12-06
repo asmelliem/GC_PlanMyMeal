@@ -32,7 +32,6 @@ namespace GC_PlanMyMeal.RecipeService
         //&intolerances=egg&diet=vegetarian&maxCarbs=400&maxProtein=15&minProtein=1
         public async Task<Recipe> SearchForRecipeByQuery (string diet, string intolerance, int? maxCalorie, int? maxCarb, int? maxProtein, int? minProtein)
         {
-            var apiKey = _configuration.GetValue<string>("apiKey");
 
             StringBuilder query = new StringBuilder();
             
@@ -42,7 +41,7 @@ namespace GC_PlanMyMeal.RecipeService
             if (maxCarb.HasValue) { query.Append($"&maxCarb={maxCarb}"); }
             if (maxProtein.HasValue) { query.Append($"&maxProtein={maxProtein}"); }
             if (minProtein.HasValue) { query.Append($"&minProtein={minProtein}"); }
-            var response = await _httpClient.GetAsync($"/recipes/complexSearch?apiKey={apiKey}{query}");
+            var response = await _httpClient.GetAsync($"/recipes/complexSearch?apiKey={_config.ApiKey}{query}");
             var recipe = JsonConvert.DeserializeObject<Recipe>(await response.Content.ReadAsStringAsync());
             return recipe;
         }

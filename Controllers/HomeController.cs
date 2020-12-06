@@ -23,18 +23,21 @@ namespace GC_PlanMyMeal.Controllers
             return View();
         }
         
-        public async Task<IActionResult> SearchRecipe(string diet, string intolerances, int maxCalorie, int maxCarb, int maxProtein, int minProtein)
+        public async Task<IActionResult> SearchRecipe(string diet, string intolerances, int? maxCalorie, int? maxCarb, int? maxProtein, int? minProtein)
         {
-            var recipe = await _recipeClient.SearchForRecipeByQuery(diet, intolerances, maxCalorie, maxCarb, maxProtein, minProtein);
-            var recipeResult = new RecipeSearchResult()
+            var recipes = await _recipeClient.SearchForRecipeByQuery(diet, intolerances, maxCalorie, maxCarb, maxProtein, minProtein);
+            var recipeSearchResults = new List<RecipeSearchResult>();
+            foreach (var recipe in recipes)
             {
-                Id = recipe.Id,
-                Title = recipe.Title,
-                ReadyInMinutes = recipe.ReadyInMinutes,
-                Servings = recipe.Servings,
-                SourceUrl = recipe.SourceUrl
-            };
-            return View(recipeResult);
+                var recipeResult = new RecipeSearchResult()
+                {
+                    Id = recipe.Id,
+                    Title = recipe.Title,
+                };
+                recipeSearchResults.Add(recipeResult);
+            }
+          
+            return View(recipeSearchResults.First());
         }
     }
 }

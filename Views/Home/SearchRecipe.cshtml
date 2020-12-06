@@ -4,35 +4,24 @@
     ViewData["Title"] = "Here's Your Recipe!";
 }
 
-Title: @Model.Title
-<br />
-Ready In Minutes: @Model.ReadyInMinutes
-<br />
-Servings: @Model.Servings
-<br />
-Source URL: @Model.SourceUrl
 
 <table class="table table-hover">
     <thead>
         <tr>
             <th scope="col">ID</th>
-            <th scope="col">Recipe Name</th>
-            <th scope="col">Ready In Minutes</th>
-            <th scope="col">URL</th>
+            <th scope="col">Title</th>
+            <th scope="col">Image</th>
         </tr>
     </thead>
     <tbody>
         <tr>
+            <td>@Model.Id</td>
+        </tr>
+        <tr>
             <td>@Model.Title</td>
         </tr>
         <tr>
-            <td>@Model.ReadyInMinutes</td>
-        </tr>
-        <tr>
-            <td> @Model.Servings</td>
-        </tr>
-        <tr>
-            <td> @Model.SourceUrl</td>
+            <td> @Model.Image</td>
         </tr>
     </tbody>
 </table>

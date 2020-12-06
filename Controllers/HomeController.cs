@@ -22,10 +22,10 @@ namespace GC_PlanMyMeal.Controllers
         {
             return View();
         }
-
-        public async Task<IActionResult> SearchRecipe(int Id)
+        
+        public async Task<IActionResult> SearchRecipe(string diet, string intolerance, int maxCalorie, int maxCarb, int maxProtein, int minProtein)
         {
-            var recipe = await _recipeClient.SearchForRecipeById(Id);
+            var recipe = await _recipeClient.SearchForRecipeByQuery(diet, intolerance, maxCalorie, maxCarb, maxProtein, minProtein);
             var recipeResult = new RecipeSearchResult()
             {
                 Id = recipe.Id,
@@ -36,6 +36,5 @@ namespace GC_PlanMyMeal.Controllers
             };
             return View(recipeResult);
         }
-
     }
 }

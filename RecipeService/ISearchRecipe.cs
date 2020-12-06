@@ -9,5 +9,6 @@ namespace GC_PlanMyMeal.RecipeService
     public interface ISearchRecipe
     {
         Task<Recipe> SearchForRecipeById (int id);
+        Task<Recipe> SearchForRecipeByQuery (string diet, string intolerance, int? maxCalorie, int? maxCarb, int? maxProtein, int? minProtein);
     }
 }

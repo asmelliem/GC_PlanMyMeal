@@ -2,6 +2,7 @@
     ViewData["Title"] = "Home Page";
 }
 
+@model HomeIndexViewModel
 
 <div style="width:500px;float:left">
     <h2>Recipe of the Day</h2>
@@ -23,27 +24,27 @@
             </div>*@
         <div class="form-group">
             <label>Diet</label>
-            <input name="Diet" type="Text" class="form-control">
+            <input asp-for="@Model.Diet"name="Diet" type="Text" class="form-control">
         </div>
         <div class="form-group">
             <label>List Intolerances</label>
-            <input name="Intolerances" type="Text" class="form-control">
+            <input asp-for="@Model.Intolerances" name="Intolerances" type="Text" class="form-control">
         </div>
         <div class="form-group">
             <label>Maximum Calories</label>
-            <input name="MaxCalori" type="Number" class="form-control">
+            <input asp-for="@Model.MaxCalorie" name="MaxCalorie" type="Number" class="form-control">
         </div>
         <div class="form-group">
             <label>Maximum Carbs</label>
-            <input name="MaxCarb" type="Number" class="form-control">
+            <input asp-for="@Model.MaxCarb" name="MaxCarb" type="Number" class="form-control">
         </div>
         <div class="form-group">
             <label>Maximum Protein</label>
-            <input name="MaxProtein" type="Number" class="form-control">
+            <input asp-for="@Model.MaxProtein" name="MaxProtein" type="Number" class="form-control">
         </div>
         <div class="form-group">
             <label>Minimum Protein</label>
-            <input name="MinProtein" type="Number" class="form-control">
+            <input asp-for="@Model.MinProtein"name="MinProtein" type="Number" class="form-control">
         </div>
         <button type="submit" class="btn btn-primary mb-2">Search</button>
     </form>

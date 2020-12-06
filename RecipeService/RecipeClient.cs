@@ -40,8 +40,8 @@ namespace GC_PlanMyMeal.RecipeService
             if (maxProtein.HasValue) { query.Append($"&maxProtein={maxProtein}"); }
             if (minProtein.HasValue) { query.Append($"&minProtein={minProtein}"); }
             var response = await _httpClient.GetAsync($"/recipes/complexSearch?apiKey={_config.ApiKey}{query}");
-            var reciepe = JsonConvert.DeserializeObject<ReciepeApiResults>(await response.Content.ReadAsStringAsync());
-            return reciepe.Results;
+            var recipe = JsonConvert.DeserializeObject<ReciepeApiResults>(await response.Content.ReadAsStringAsync());
+            return recipe.Results;
         }
     }
 }

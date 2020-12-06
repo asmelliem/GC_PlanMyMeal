@@ -33,11 +33,27 @@ namespace GC_PlanMyMeal.Controllers
                 {
                     Id = recipe.Id,
                     Title = recipe.Title,
+                    Image = recipe.Image,
                 };
                 recipeSearchResults.Add(recipeResult);
             }
           
-            return View(recipeSearchResults.First());
+            return View(recipeSearchResults);
+        }
+
+        public async Task<IActionResult> ConfirmSaveRecipe(int id)
+        {
+            var recipe = await _recipeClient.SearchForRecipeById(id);
+            var recipeResult = new RecipeConfirmationInfoViewModel()
+            {
+                Title = recipe.Title,
+                Image = recipe.Image,
+                Id = recipe.Id,
+                Summary = recipe.Summary,
+                Instructions = recipe.Instructions,
+                ExtendedIngredients = recipe.ExtendedIngredients
+            };
+            return View(recipeResult);
         }
     }
 }

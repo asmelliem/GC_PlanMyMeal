@@ -14,6 +14,9 @@ namespace GC_PlanMyMeal.RecipeService.Models
         public int Servings { get; set; }
         public string SourceUrl { get; set; }
         public string Image { get; set; }
+        public string Summary { get; set; }
+        public string Instructions { get; set; }
+        public List<ExtendedIngredients> ExtendedIngredients { get; set; } 
     }
 
     public class ReciepeApiResults

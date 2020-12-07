@@ -41,9 +41,9 @@ namespace GC_PlanMyMeal.Controllers
             return View(recipeSearchResults);
         }
 
-        public async Task<IActionResult> ConfirmSaveRecipe(int id)
+        public async Task<IActionResult> ConfirmSaveRecipe(RecipeSearchResult recipeSearchResult)
         {
-            var recipe = await _recipeClient.SearchForRecipeById(id);
+            var recipe = await _recipeClient.SearchForRecipeById(recipeSearchResult.Id);
             var recipeResult = new RecipeConfirmationInfoViewModel()
             {
                 Title = recipe.Title,

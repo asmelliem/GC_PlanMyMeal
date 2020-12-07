@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace GC_PlanMyMeal.Controllers
@@ -13,6 +14,7 @@ namespace GC_PlanMyMeal.Controllers
     public class HomeController : Controller
     {
         private readonly ISearchRecipe _recipeClient;
+        
         public HomeController(ISearchRecipe recipeClient)
         {
             _recipeClient = recipeClient;
@@ -43,14 +45,15 @@ namespace GC_PlanMyMeal.Controllers
 
         public async Task<IActionResult> ConfirmSaveRecipe(RecipeSearchResult recipeSearchResult)
         {
+            var htmlRegEx = "<[^>]*>";
             var recipe = await _recipeClient.SearchForRecipeById(recipeSearchResult.Id);
             var recipeResult = new RecipeConfirmationInfoViewModel()
             {
                 Title = recipe.Title,
                 Image = recipe.Image,
                 Id = recipe.Id,
-                Summary = recipe.Summary,
-                Instructions = recipe.Instructions,
+                Summary = Regex.Replace(recipe.Summary, htmlRegEx, string.Empty),
+                Instructions = Regex.Replace(recipe.Instructions, htmlRegEx, string.Empty),
                 ExtendedIngredients = recipe.ExtendedIngredients
             };
             return View(recipeResult);

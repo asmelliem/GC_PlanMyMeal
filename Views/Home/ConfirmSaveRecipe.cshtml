@@ -3,3 +3,30 @@
 *@
 @{
 }
+@model RecipeConfirmationInfoViewModel
+
+<h2 class="text-center">@Model.Title</h2>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h3>Summary</h3>
+                @Model.Summary
+                <h3>Instructions</h3>
+                @Model.Instructions
+            </div>
+            <div class="col">
+                <img src="@Model.Image" />
+                <h3>Ingredients</h3>
+                <ul>
+                    @foreach (var ingredient in @Model.ExtendedIngredients)
+                    {
+                        <li>@ingredient.Amount @ingredient.Unit @ingredient.Name</li>
+                    }
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+
+</body>

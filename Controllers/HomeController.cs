@@ -56,8 +56,8 @@ namespace GC_PlanMyMeal.Controllers
                 Title = recipe.Title,
                 Image = recipe.Image,
                 Id = recipe.Id,
-                Summary = Regex.Replace(recipe.Summary, htmlRegEx, string.Empty),
-                Instructions = Regex.Replace(recipe.Instructions, htmlRegEx, string.Empty),
+                Summary = Regex.Replace(recipe.Summary ?? "No Summary Available", htmlRegEx, string.Empty),
+                Instructions = Regex.Replace(recipe.Instructions ?? "No Instructions Available", htmlRegEx, string.Empty),
                 ExtendedIngredients = recipe.ExtendedIngredients
             };
             return View(recipeResult);
@@ -74,8 +74,7 @@ namespace GC_PlanMyMeal.Controllers
             else
             {
                 return RedirectToAction("Error", "Home");
-            }
-            
+            }            
         }
 
         public IActionResult Error()

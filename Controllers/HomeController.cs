@@ -1,11 +1,13 @@
 ﻿using GC_PlanMyMeal.Models;
 using GC_PlanMyMeal.RecipeService;
+using GC_PlanMyMeal.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -14,10 +16,12 @@ namespace GC_PlanMyMeal.Controllers
     public class HomeController : Controller
     {
         private readonly ISearchRecipe _recipeClient;
+        private readonly IRepositoryClient _repositoryClient;
         
-        public HomeController(ISearchRecipe recipeClient)
+        public HomeController(ISearchRecipe recipeClient, IRepositoryClient repositoryClient)
         {
             _recipeClient = recipeClient;
+            _repositoryClient = repositoryClient;
         }
 
         public IActionResult Index()
@@ -57,6 +61,26 @@ namespace GC_PlanMyMeal.Controllers
                 ExtendedIngredients = recipe.ExtendedIngredients
             };
             return View(recipeResult);
+        }
+
+        public async Task<IActionResult> SaveRecipe(RecipeConfirmationInfoViewModel recipeInfo)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var recipeIsSaved = await _repositoryClient.SaveRecipe(recipeInfo.Id, userId);
+            if(recipeIsSaved)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return RedirectToAction("Error", "Home");
+            }
+            
+        }
+
+        public IActionResult Error()
+        {
+            return View();
         }
     }
 }

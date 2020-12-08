@@ -1,6 +1,7 @@
 using GC_PlanMyMeal.Areas.Identity.Data;
 using GC_PlanMyMeal.Configuration;
 using GC_PlanMyMeal.RecipeService;
+using GC_PlanMyMeal.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -43,6 +44,8 @@ namespace GC_PlanMyMeal
 
             services.AddDbContext<GC_PlanMyMealIdentityDbContext>(options =>
                 options.UseSqlServer(Configuration["ConnectionStrings:PlanMyMealDb"]));
+
+            services.AddScoped<IRepositoryClient, RepositoryClient>();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<GC_PlanMyMealIdentityDbContext>();

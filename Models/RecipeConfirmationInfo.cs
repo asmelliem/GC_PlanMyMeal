@@ -12,5 +12,6 @@ namespace GC_PlanMyMeal.Models
         public string Summary { get; set; }
         public string Instructions { get; set; }
         public List<ExtendedIngredients> ExtendedIngredients { get; set; }
+        public bool UserSavedRecipe { get; set; }
     }
 }

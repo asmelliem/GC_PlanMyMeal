@@ -28,9 +28,12 @@ namespace GC_PlanMyMeal.Models
             "Gluten Free",
             "Ketogenic",
             "Vegetarian",
+            "Lacto-Vegetarian",
+            "Ovo-Vegetarian",
             "Vegan",
             "Pescetarian",
             "Paleo",
+            "Primal",
             "Whole30"
         };
     }

@@ -42,15 +42,16 @@ namespace GC_PlanMyMeal.Controllers
                     Image = recipe.Image,
                 };
                 recipeSearchResults.Add(recipeResult);
-            }
-          
+            }          
             return View(recipeSearchResults);
         }
 
         public async Task<IActionResult> ConfirmSaveRecipe(RecipeSearchResult recipeSearchResult)
         {
             var htmlRegEx = "<[^>]*>";
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var recipe = await _recipeClient.SearchForRecipeById(recipeSearchResult.Id);
+            var isSavedRecipe = await _repositoryClient.FindSavedRecipe(recipeSearchResult.Id, userId);
             var recipeResult = new RecipeConfirmationInfoViewModel()
             {
                 Title = recipe.Title,
@@ -58,23 +59,32 @@ namespace GC_PlanMyMeal.Controllers
                 Id = recipe.Id,
                 Summary = Regex.Replace(recipe.Summary ?? "No Summary Available", htmlRegEx, string.Empty),
                 Instructions = Regex.Replace(recipe.Instructions ?? "No Instructions Available", htmlRegEx, string.Empty),
-                ExtendedIngredients = recipe.ExtendedIngredients
+                ExtendedIngredients = recipe.ExtendedIngredients,
+                UserSavedRecipe = isSavedRecipe
             };
             return View(recipeResult);
         }
 
         public async Task<IActionResult> SaveRecipe(RecipeConfirmationInfoViewModel recipeInfo)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var recipeIsSaved = await _repositoryClient.SaveRecipe(recipeInfo.Id, userId);
-            if(recipeIsSaved)
+            try
             {
-                return RedirectToAction("Index", "Home");
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var recipeIsSaved = await _repositoryClient.SaveRecipe(recipeInfo.Id, userId);
+                if (recipeIsSaved)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    return RedirectToAction("Error", "Home");
+                }
             }
-            else
+            catch(Exception ex)
             {
-                return RedirectToAction("Error", "Home");
-            }            
+                
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult Error()

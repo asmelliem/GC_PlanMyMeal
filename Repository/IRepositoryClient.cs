@@ -9,5 +9,6 @@ namespace GC_PlanMyMeal.Repository
     public interface IRepositoryClient
     {
         Task<bool> SaveRecipe(int? recipeId, string userId);
+        Task<bool> FindSavedRecipe(int recipeId, string userId);
     }
 }

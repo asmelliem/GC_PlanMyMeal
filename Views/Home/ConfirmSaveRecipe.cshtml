@@ -27,8 +27,16 @@
             </div>
         </div>
         <div class="row">
-            <p>Are you sure you would like to save this recipe?</p>
-            <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("SaveRecipe", "Home", Model)'">Yes</button>
+            @if (Model.UserSavedRecipe == true)
+            {
+                <p>You have already saved this recipe.</p>
+            }
+            @if (Model.UserSavedRecipe == false)
+            {
+                <p>Are you sure you would like to save this recipe?</p><br />
+                <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("SaveRecipe", "Home", Model)'">Yes</button>
+                <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("Index", "Home", Model)'">No</button>              
+            }
         </div>
     </div>
 

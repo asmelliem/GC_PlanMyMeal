@@ -33,10 +33,10 @@
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">
-            @Html.TextBoxFor(m => m.ClientSelectedPreferences.MaxCalorie)
+            @Html.TextBoxFor(m => m.ClientSelectedPreferences.MaxCalorie, new { @type = "number" })
         </div>
         <div class="form-group col-md-6">
-            @Html.TextBoxFor(m => m.ClientSelectedPreferences.MaxCarb)
+            @Html.TextBoxFor(m => m.ClientSelectedPreferences.MaxCarb, new { @type = "number" })
         </div>
     </div>
     <div class="form-row">
@@ -49,10 +49,10 @@
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">
-            @Html.TextBoxFor(m => m.ClientSelectedPreferences.MinProtein)
+            @Html.TextBoxFor(m => m.ClientSelectedPreferences.MinProtein, new { @type = "number" })
         </div>
         <div class="form-group col-md-6">
-            @Html.TextBoxFor(m => m.ClientSelectedPreferences.MaxProtein)
+            @Html.TextBoxFor(m => m.ClientSelectedPreferences.MaxProtein, new { @type = "number" })
         </div>
     </div>
     <button type="submit" class="btn btn-primary mb-2">Find Recipe</button>

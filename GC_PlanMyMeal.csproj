@@ -30,12 +30,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\resx\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Remove="wwwroot\resx\PMM-HeaderImage.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="wwwroot\resx\PMM-HeaderImage.png" />
+    <Content Update="wwwroot\resx\PMM-HeaderImage.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 </Project>

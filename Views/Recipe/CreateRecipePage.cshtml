@@ -1,0 +1,28 @@
+﻿@model CustomRecipe
+@{
+    ViewBag.Title = "Create Recipe";
+}
+
+<h2>Create Your Own Recipe</h2>
+
+<div>
+    <form asp-controller="Recipe" asp-action="CreateRecipe" method="post">
+        <div class="form-group">
+            <label>Name</label>
+            <input asp-for="@Model.RecipeName" type="text" class="form-control" name="recipeName">
+        </div>
+        <div class="form-group">
+            <label>Ingredients (please use commas to separate ingredients)</label>
+            <input asp-for="@Model.Ingredients" type="text" class="form-control" name="ingredients">
+        </div>
+        <div class="form-group">
+            <label>Directions</label>
+            <input asp-for="@Model.Directions" type="text" class="form-control" name="directions">
+        </div>
+        <div class="form-group">
+            <label>Notes</label>
+            <input asp-for="@Model.Notes" type="text" class="form-control" name="notes">
+        </div>
+        <button type="submit" class="btn btn-primary mb-2">Create Recipe</button>
+    </form>
+</div>

@@ -70,5 +70,20 @@ namespace GC_PlanMyMeal.Repository
                 return false;
             }
         }
+
+        public async Task<bool> AddCustomRecipe(CustomRecipe customRecipe)
+        {
+            try
+            {
+                await _context.CustomRecipes.AddAsync(customRecipe);
+                _context.SaveChanges();
+                return true;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+                return false;
+            }
+        }
     }
 }

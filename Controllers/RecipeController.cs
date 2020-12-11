@@ -1,4 +1,5 @@
-﻿using GC_PlanMyMeal.Models.ViewModel;
+﻿using GC_PlanMyMeal.Models;
+using GC_PlanMyMeal.Models.ViewModel;
 using GC_PlanMyMeal.RecipeService;
 using GC_PlanMyMeal.Repository;
 using Microsoft.AspNetCore.Mvc;
@@ -51,6 +52,33 @@ namespace GC_PlanMyMeal.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var isRecipeDeleted = await _repositoryClient.DeleteRecipe(userId, recipeInfo.RecipeId, null);
             if(isRecipeDeleted)
+            {
+                return RedirectToAction("SavedRecipeList", "Recipe");
+            }
+            else
+            {
+                return RedirectToAction("Error", "Home");
+            }            
+        }
+
+        public IActionResult CreateRecipePage()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> CreateRecipe(string recipeName, string ingredients, string directions, string notes)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var customRecipe = new CustomRecipe()
+            {
+                UserId = userId,
+                RecipeName = recipeName,
+                Ingredients = ingredients,
+                Directions = directions,
+                Notes = notes
+            };
+            var isRecipeSaved = await _repositoryClient.AddCustomRecipe(customRecipe);
+            if(isRecipeSaved)
             {
                 return RedirectToAction("SavedRecipeList", "Recipe");
             }

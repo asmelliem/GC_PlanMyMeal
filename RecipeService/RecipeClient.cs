@@ -1,4 +1,5 @@
 ﻿using GC_PlanMyMeal.Configuration;
+using GC_PlanMyMeal.Models;
 using GC_PlanMyMeal.RecipeService.Models;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
@@ -30,11 +31,11 @@ namespace GC_PlanMyMeal.RecipeService
         }
 
         //&intolerances=egg&diet=vegetarian&maxCarbs=400&maxProtein=15&minProtein=1
-        public async Task<List<Recipe>> SearchForRecipeByQuery (string diet, string intolerance, int? maxCalorie, int? maxCarb, int? maxProtein, int? minProtein)
+        public async Task<List<Recipe>> SearchForRecipeByQuery (string diet, Intolerances intolerance, int? maxCalorie, int? maxCarb, int? maxProtein, int? minProtein)
         {
             StringBuilder query = new StringBuilder();
             if(diet != null){ query.Append($"&diet={diet}"); }
-            if (intolerance != null) { query.Append($"&intolerances={intolerance}"); }
+            if (intolerance != null) { query.Append($"&intolerances={intolerance.ToString()}"); }
             if (maxCalorie.HasValue) { query.Append($"&maxCalorie={maxCalorie}"); }
             if (maxCarb.HasValue) { query.Append($"&maxCarb={maxCarb}"); }
             if (maxProtein.HasValue) { query.Append($"&maxProtein={maxProtein}"); }

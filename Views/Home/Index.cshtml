@@ -4,9 +4,15 @@
 
 @model HomeIndexViewModel
 
-<div style="width:500px;float:left">
+<div style="width:500px;float:left" image>
     <h2>Recipe of the Day</h2>
-    <img src="https://spoonacular.com/recipeImages/1487863-312x231.jpg" width="312" height="231" class="center">
+    <br />
+    <img src="https://spoonacular.com/recipeImages/1487863-312x231.jpg" width="500" height="370" align="left">
+    <br />
+    <h2>Title</h2>
+    <p>
+        Summary of recipe
+    </p>
 
 </div>
 
@@ -16,6 +22,7 @@
         <div class="form-group">
             <label>Diet</label>
             <select asp-for="@Model.Diet" name="Diet" type="Text" class="form-control">
+                
                 <option value="">Choose Your Diet</option>
                 <option>Gluten Free</option>
                 <option>Ketogenic</option>
@@ -31,55 +38,55 @@
         </div>
         <div class="form-group">
             <div class="form-check form-check-inline">
-                <input asp-for="@Model.Intolerances" type="checkbox" class="form-check-input" id="inlineCheckbox1" value="Egg">
+                <input asp-for="@Model.Intolerances.egg" type="checkbox" class="form-check-input" id="inlineCheckbox1">
                 <label class="form-check-label" for="inlineCheckbox1">Egg</label>
             </div>
             <div class="form-check form-check-inline">
-                <input asp-for="@Model.Intolerances" type="checkbox" class="form-check-input" id="inlineCheckbox2" value="Dairy">
+                <input asp-for="@Model.Intolerances.dairy" type="checkbox" class="form-check-input" id="inlineCheckbox2" >
                 <label class="form-check-label" for="inlineCheckbox2">Dairy</label>
             </div>
             <div class="form-check form-check-inline">
-                <input asp-for="@Model.Intolerances" type="checkbox" class="form-check-input" id="inlineCheckbox3" value="Gluton">
+                <input asp-for="@Model.Intolerances.gluton" type="checkbox" class="form-check-input" id="inlineCheckbox3">
                 <label class="form-check-label" for="inlineCheckbox3">Gluton</label>
             </div>
             <div class="form-check form-check-inline">
-                <input asp-for="@Model.Intolerances" type="checkbox" class="form-check-input" id="inlineCheckbox1" value="Grain">
+                <input asp-for="@Model.Intolerances.grain" type="checkbox" class="form-check-input" id="inlineCheckbox1">
                 <label class="form-check-label" for="inlineCheckbox1">Grain</label>
             </div>
         </div>
         <div class="form-group">
             <div class="form-check form-check-inline">
-                <input asp-for="@Model.Intolerances" type="checkbox" class="form-check-input" id="inlineCheckbox1" value="Peanut">
+                <input asp-for="@Model.Intolerances.peanut" type="checkbox" class="form-check-input" id="inlineCheckbox1">
                 <label class="form-check-label" for="inlineCheckbox1">Peanut</label>
             </div>
             <div class="form-check form-check-inline">
-                <input asp-for="@Model.Intolerances" type="checkbox" class="form-check-input" id="inlineCheckbox2" value="Seafood">
+                <input asp-for="@Model.Intolerances.seafood" type="checkbox" class="form-check-input" id="inlineCheckbox2">
                 <label class="form-check-label" for="inlineCheckbox2">Seafood</label>
             </div>
             <div class="form-check form-check-inline">
-                <input asp-for="@Model.Intolerances" type="checkbox" class="form-check-input" id="inlineCheckbox3" value="Sesame">
+                <input asp-for="@Model.Intolerances.sesame" type="checkbox" class="form-check-input" id="inlineCheckbox3">
                 <label class="form-check-label" for="inlineCheckbox3">Sesame</label>
             </div>
             <div class="form-check form-check-inline">
-                <input asp-for="@Model.Intolerances" type="checkbox" class="form-check-input" id="inlineCheckbox1" value="Shellfish">
+                <input asp-for="@Model.Intolerances.shellfish" type="checkbox" class="form-check-input" id="inlineCheckbox1">
                 <label class="form-check-label" for="inlineCheckbox1">Shellfish</label>
             </div>
         </div>
         <div class="form-group">
             <div class="form-check form-check-inline">
-                <input asp-for="@Model.Intolerances" type="checkbox" class="form-check-input" id="inlineCheckbox1" value="Soy">
+                <input asp-for="@Model.Intolerances.soy" type="checkbox" class="form-check-input" id="inlineCheckbox1">
                 <label class="form-check-label" for="inlineCheckbox1">Soy</label>
             </div>
             <div class="form-check form-check-inline">
-                <input asp-for="@Model.Intolerances" type="checkbox" class="form-check-input" id="inlineCheckbox2" value="Sulfite">
+                <input asp-for="@Model.Intolerances.sulfite" type="checkbox" class="form-check-input" id="inlineCheckbox2">
                 <label class="form-check-label" for="inlineCheckbox2">Sulfite</label>
             </div>
             <div class="form-check form-check-inline">
-                <input asp-for="@Model.Intolerances" type="checkbox" class="form-check-input" id="inlineCheckbox3" value="Tree Nut">
+                <input asp-for="@Model.Intolerances.treeNut" type="checkbox" class="form-check-input" id="inlineCheckbox3">
                 <label class="form-check-label" for="inlineCheckbox3">Tree Nut</label>
             </div>
             <div class="form-check form-check-inline">
-                <input asp-for="@Model.Intolerances" type="checkbox" class="form-check-input" id="inlineCheckbox1" value="Wheat">
+                <input asp-for="@Model.Intolerances.wheat" type="checkbox" class="form-check-input" id="inlineCheckbox1">
                 <label class="form-check-label" for="inlineCheckbox1">Wheat</label>
             </div>
         </div>

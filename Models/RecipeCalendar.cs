@@ -14,7 +14,6 @@ namespace GC_PlanMyMeal.Models
         public DateTime CookDate { get; set; }
         public string MealTime { get; set; }
         public bool HasBeenCooked { get; set; }
-
         public virtual CustomRecipe CustomRecipe { get; set; }
     }
 }

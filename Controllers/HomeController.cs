@@ -86,6 +86,7 @@ namespace GC_PlanMyMeal.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
+        
 
         public IActionResult Error()
         {

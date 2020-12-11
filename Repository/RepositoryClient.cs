@@ -49,5 +49,26 @@ namespace GC_PlanMyMeal.Repository
                 return true;
             }
         }
+
+        public async Task<List<SavedRecipe>> RetrieveRecipeList(string userId)
+        {
+            var result = await _context.SavedRecipes.Where(r => r.UserId == userId).ToListAsync();
+            return result;
+        }
+
+        public async Task<bool> DeleteRecipe(string userId, int? recipeId, int? customId)
+        {
+            try
+            {
+                var recipe = await _context.SavedRecipes.FirstOrDefaultAsync(r => r.RecipeId == recipeId && r.UserId == userId);
+                _context.SavedRecipes.Remove(recipe);
+                _context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

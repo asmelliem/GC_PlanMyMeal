@@ -82,7 +82,7 @@ namespace GC_PlanMyMeal.Controllers
             }
             catch(Exception ex)
             {
-                
+                Console.WriteLine(ex);
             }
             return RedirectToAction("Index", "Home");
         }

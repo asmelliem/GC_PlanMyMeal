@@ -56,6 +56,13 @@ namespace GC_PlanMyMeal.Repository
             return result;
         }
 
+        public async Task<List<CustomRecipe>> RetrieveCustomRecipeList(string userId)
+        {
+            var result = await _context.CustomRecipes.Where(r => r.UserId == userId).ToListAsync();
+            return result;
+        }
+
+
         public async Task<bool> DeleteRecipe(string userId, int? recipeId, int? customId)
         {
             try
@@ -81,7 +88,7 @@ namespace GC_PlanMyMeal.Repository
             }
             catch(Exception ex)
             {
-                Console.WriteLine(ex);
+                Console.WriteLine();
                 return false;
             }
         }

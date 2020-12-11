@@ -28,21 +28,31 @@ namespace GC_PlanMyMeal.Controllers
             
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var savedRecipeList = await _repositoryClient.RetrieveRecipeList(userId);
+            var savedCustomRecipeList = await _repositoryClient.RetrieveCustomRecipeList(userId);
             var recipeList = new List<SavedRecipeListViewModel>();
             foreach(var recipe in savedRecipeList)
             {
-                if (recipe.RecipeId != null)
+                var recipeInfo = await _recipeClient.SearchForRecipeById(recipe.RecipeId);
+                var recipeResult = new SavedRecipeListViewModel()
                 {
-                    var recipeInfo = await _recipeClient.SearchForRecipeById(recipe.RecipeId);
-                    var recipeResult = new SavedRecipeListViewModel()
-                    {
-                        RecipeId = recipe.RecipeId,
-                        Name = recipeInfo.Title,
-                        ImageURL = recipeInfo.Image,
-                        RecipeURL = recipeInfo.SourceUrl
-                    };
-                    recipeList.Add(recipeResult);
-                }
+                    RecipeId = recipe.RecipeId,
+                    Name = recipeInfo.Title,
+                    ImageURL = recipeInfo.Image,
+                    RecipeURL = recipeInfo.SourceUrl
+                };
+                recipeList.Add(recipeResult);
+                
+            }
+            foreach(var recipe in savedCustomRecipeList)
+            {
+                var recipeResult = new SavedRecipeListViewModel()
+                {
+                    RecipeId = recipe.Id,
+                    Name = recipe.RecipeName,
+                    ImageURL = null,
+                    RecipeURL = null
+                };
+                recipeList.Add(recipeResult);
             }
             return View(recipeList);
         }
@@ -85,8 +95,7 @@ namespace GC_PlanMyMeal.Controllers
             else
             {
                 return RedirectToAction("Error", "Home");
-            }
-            
+            }            
         }
     }
 }

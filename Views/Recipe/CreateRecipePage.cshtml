@@ -1,12 +1,23 @@
-﻿@model CustomRecipe
+﻿@model GC_PlanMyMeal.Models.ViewModel.CustomRecipeViewModel
 @{
-    ViewBag.Title = "Create Recipe";
+    ViewBag.Title = "Create/Edit Recipe";
 }
 
-<h2>Create Your Own Recipe</h2>
+@if (Model.Id == null)
+{
+    <h2>Create Your Own Recipe</h2>
+}
+
+@if (Model.Id != null)
+{
+    <h2>Edit Your Own Recipe</h2>
+}
 
 <div>
     <form asp-controller="Recipe" asp-action="CreateRecipe" method="post">
+        <div class="form-group">
+            <input asp-for="@Model.Id" type="text" class="form-control" name="id" hidden>
+        </div>
         <div class="form-group">
             <label>Name</label>
             <input asp-for="@Model.RecipeName" type="text" class="form-control" name="recipeName">
@@ -23,6 +34,15 @@
             <label>Notes</label>
             <input asp-for="@Model.Notes" type="text" class="form-control" name="notes">
         </div>
-        <button type="submit" class="btn btn-primary mb-2">Create Recipe</button>
+        @if (Model.Id == null)
+        {
+            <button type="submit" class="btn btn-primary mb-2">Create Recipe</button>
+        }
+        @if (Model.Id != null)
+        {
+            <button type="submit" class="btn btn-primary mb-2">Edit Recipe</button>
+        }
+
+
     </form>
 </div>

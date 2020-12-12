@@ -82,10 +82,10 @@ namespace GC_PlanMyMeal.Controllers
 
         public IActionResult CreateRecipePage()
         {
-            return View();
+            return View(new CustomRecipeViewModel());
         }
 
-        public async Task<IActionResult> CreateRecipe(string recipeName, string ingredients, string directions, string notes)
+        public async Task<IActionResult> CreateRecipe(string recipeName, string ingredients, string directions, string notes, int? id)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var customRecipe = new CustomRecipe()
@@ -96,15 +96,44 @@ namespace GC_PlanMyMeal.Controllers
                 Directions = directions,
                 Notes = notes
             };
-            var isRecipeSaved = await _repositoryClient.AddCustomRecipe(customRecipe);
-            if(isRecipeSaved)
+            var isRecipeSaved = false;
+            if (id == null)
+            {                
+                isRecipeSaved = await _repositoryClient.AddCustomRecipe(customRecipe);
+                
+            }
+            else
+            {
+                customRecipe.Id = id.Value;
+                isRecipeSaved = await _repositoryClient.UpdateRecipe(customRecipe);
+            }
+
+            if (isRecipeSaved)
             {
                 return RedirectToAction("SavedRecipeList", "Recipe");
             }
             else
             {
                 return RedirectToAction("Error", "Home");
-            }            
+            }
+
+        }
+
+        
+        public async Task<IActionResult> EditCustomRecipe(SavedRecipeListViewModel recipe)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var customRecipeInfo = await _repositoryClient.RetrieveCustomRecipe(userId, recipe.CustomeRecipeId);
+            var customRecipe = new CustomRecipeViewModel()
+            {
+                UserId = customRecipeInfo.UserId,
+                RecipeName = customRecipeInfo.RecipeName,
+                Ingredients = customRecipeInfo.Ingredients,
+                Directions = customRecipeInfo.Directions,
+                Notes = customRecipeInfo.Notes,
+                Id = customRecipeInfo.Id
+            };
+            return View("CreateRecipePage", customRecipe);
         }
     }
 }

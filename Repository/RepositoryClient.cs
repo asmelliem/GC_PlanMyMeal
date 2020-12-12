@@ -56,6 +56,12 @@ namespace GC_PlanMyMeal.Repository
             return result;
         }
 
+        public async Task<CustomRecipe> RetrieveCustomRecipe(string userId, int? customRecipeId)
+        {
+            var result = await _context.CustomRecipes.FirstOrDefaultAsync(r => r.UserId == userId && r.Id == customRecipeId);
+            return result;
+        }
+
         public async Task<List<CustomRecipe>> RetrieveCustomRecipeList(string userId)
         {
             var result = await _context.CustomRecipes.Where(r => r.UserId == userId).ToListAsync();
@@ -98,7 +104,26 @@ namespace GC_PlanMyMeal.Repository
             }
             catch(Exception ex)
             {
-                Console.WriteLine();
+                Console.WriteLine(ex);
+                return false;
+            }
+        }
+
+        public async Task<bool> UpdateRecipe(CustomRecipe customRecipe)
+        {
+            try
+            {
+                var recipe = await _context.CustomRecipes.SingleOrDefaultAsync(r => r.Id == customRecipe.Id);
+                recipe.RecipeName = customRecipe.RecipeName;
+                recipe.Ingredients = customRecipe.Ingredients;
+                recipe.Directions = customRecipe.Directions;
+                recipe.Notes = customRecipe.Notes;
+                _context.SaveChanges();
+                return true;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
                 return false;
             }
         }

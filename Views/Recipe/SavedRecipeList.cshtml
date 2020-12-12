@@ -3,7 +3,7 @@
     ViewBag.Title = "Saved Recipes";
 }
 
-<button type="button" class="btn btn-success" onclick="location.href='@Url.Action("CreateRecipePage", "Recipe")">Create My Own Recipe</button>
+<button type="button" class="btn btn-success" onclick="location.href='@Url.Action("CreateRecipePage", "Recipe")'">Create My Own Recipe</button>
 <table class="table">
     <thead>
         <tr>
@@ -17,15 +17,26 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
+        <tr>
+            @if (item.CustomeRecipeId == null)
+            {
                 <td>@item.RecipeId</td>
-                <td>@item.Name</td>
-                <td><img src=@item.ImageURL></td>
-                <td>
-                    <button type="button" class="btn btn-success" onclick="window.open('@item.RecipeURL', '_blank')">More Info</button>
-                    <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("DeleteSavedRecipe", "Recipe", item)'">Delete</button>
-                </td>
-            </tr>
+            }
+            @if (item.RecipeId == null)
+            {
+                <td>@item.CustomeRecipeId</td>
+            }
+            <td>@item.Name</td>
+            <td><img src=@item.ImageURL></td>
+            <td>
+                <button type="button" class="btn btn-success" onclick="window.open('@item.RecipeURL', '_blank')">More Info</button>
+                <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("DeleteSavedRecipe", "Recipe", item)'">Delete</button>
+                @if (item.RecipeId == null)
+                {
+                    <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("EditCustomRecipe", "Recipe", item)'">Edit Custom Recipe</button>
+                }
+            </td>
+        </tr>
         }
     </tbody>
 </table>

@@ -14,5 +14,7 @@ namespace GC_PlanMyMeal.Repository
         Task<bool> DeleteRecipe(string userId, int? recipeId, int? customId);
         Task<bool> AddCustomRecipe(CustomRecipe customRecipe);
         Task<List<CustomRecipe>> RetrieveCustomRecipeList(string userId);
+        Task<CustomRecipe> RetrieveCustomRecipe(string userId, int? customRecipeId);
+        Task<bool> UpdateRecipe(CustomRecipe customRecipe);
     }
 }

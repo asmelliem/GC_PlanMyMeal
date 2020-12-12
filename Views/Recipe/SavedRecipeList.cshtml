@@ -29,7 +29,14 @@
             <td>@item.Name</td>
             <td><img src=@item.ImageURL></td>
             <td>
-                <button type="button" class="btn btn-success" onclick="window.open('@item.RecipeURL', '_blank')">More Info</button>
+                @if (item.RecipeId != null)
+                {
+                    <button type="button" class="btn btn-success" onclick="window.open('@item.RecipeURL', '_blank')">More Info</button>
+                }
+                @if (item.CustomeRecipeId != null)
+                {
+                    <button type="button" class="btn btn-success"  onclick="location.href='@Url.Action("DisplayCustomRecipeInfo", "Recipe", item)'">More Info</button>
+                }
                 <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("DeleteSavedRecipe", "Recipe", item)'">Delete</button>
                 @if (item.RecipeId == null)
                 {

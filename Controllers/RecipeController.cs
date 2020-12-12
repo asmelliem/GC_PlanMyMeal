@@ -118,7 +118,6 @@ namespace GC_PlanMyMeal.Controllers
             }
 
         }
-
         
         public async Task<IActionResult> EditCustomRecipe(SavedRecipeListViewModel recipe)
         {
@@ -134,6 +133,21 @@ namespace GC_PlanMyMeal.Controllers
                 Id = customRecipeInfo.Id
             };
             return View("CreateRecipePage", customRecipe);
+        }
+
+        public async Task<IActionResult> DisplayCustomRecipeInfo(SavedRecipeListViewModel recipe)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var customRecipeInfo = await _repositoryClient.RetrieveCustomRecipe(userId, recipe.CustomeRecipeId);
+            var ingredientsList = customRecipeInfo.Ingredients.Split(',').ToList();
+            var customRecipe = new DisplayCustomRecipeInfoModelView()
+            {
+                RecipeName = customRecipeInfo.RecipeName,
+                Ingredients = ingredientsList,
+                Directions = customRecipeInfo.Directions,
+                Notes = customRecipeInfo.Notes
+            };
+            return View(customRecipe);
         }
     }
 }

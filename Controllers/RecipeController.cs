@@ -47,7 +47,7 @@ namespace GC_PlanMyMeal.Controllers
             {
                 var recipeResult = new SavedRecipeListViewModel()
                 {
-                    RecipeId = recipe.Id,
+                    CustomeRecipeId = recipe.Id,
                     Name = recipe.RecipeName,
                     ImageURL = null,
                     RecipeURL = null
@@ -60,7 +60,16 @@ namespace GC_PlanMyMeal.Controllers
         public async Task<IActionResult> DeleteSavedRecipe(SavedRecipeListViewModel recipeInfo)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var isRecipeDeleted = await _repositoryClient.DeleteRecipe(userId, recipeInfo.RecipeId, null);
+            var isRecipeDeleted = false;
+            if (recipeInfo.CustomeRecipeId == null)
+            {
+                isRecipeDeleted = await _repositoryClient.DeleteRecipe(userId, recipeInfo.RecipeId, null);
+            }
+            else
+            {
+                isRecipeDeleted = await _repositoryClient.DeleteRecipe(userId, null, recipeInfo.CustomeRecipeId);
+            }
+            
             if(isRecipeDeleted)
             {
                 return RedirectToAction("SavedRecipeList", "Recipe");

@@ -67,10 +67,20 @@ namespace GC_PlanMyMeal.Repository
         {
             try
             {
-                var recipe = await _context.SavedRecipes.FirstOrDefaultAsync(r => r.RecipeId == recipeId && r.UserId == userId);
-                _context.SavedRecipes.Remove(recipe);
-                _context.SaveChanges();
-                return true;
+                if(recipeId != null)
+                {
+                    var recipe = await _context.SavedRecipes.FirstOrDefaultAsync(r => r.RecipeId == recipeId && r.UserId == userId);
+                    _context.SavedRecipes.Remove(recipe);
+                    _context.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    var recipe = await _context.CustomRecipes.FirstOrDefaultAsync(r => r.Id == customId && r.UserId == userId);
+                    _context.CustomRecipes.Remove(recipe);
+                    _context.SaveChanges();
+                    return true;
+                }                
             }
             catch
             {

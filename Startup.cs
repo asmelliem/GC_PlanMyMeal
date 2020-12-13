@@ -37,7 +37,7 @@ namespace GC_PlanMyMeal
                 ApiKey = apiKey
             };
             services.AddSingleton(spoonacularConfig);
-            services.AddHttpClient<ISearchRecipe, RecipeClient>(client =>
+            services.AddHttpClient<ISearchRecipe, RecipeClientCache>(client =>
             {
                 client.BaseAddress = new Uri("https://api.spoonacular.com/");
             });

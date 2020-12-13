@@ -1,5 +1,114 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<GC_PlanMyMeal.Models.ViewModel.MealCalendarDataRowViewModel>
 @{
+    ViewBag.Title = "Meal Calendar";
 }
+
+<div>
+    <table class="table">
+        <tr>
+            <th>Meal Type</th>
+            @for (int i = 0; i < 7; i++)
+            {
+                <th>@DateTime.Today.AddDays(i).DayOfWeek</th>
+            }
+        </tr>
+
+        @foreach (var meal in Model)
+        {
+    <tr>
+        <td>@meal.MealTimeType</td>
+        @if (meal.MealNameOne.RecipeId != null)
+        {
+            <td><a href="@Url.Action("DisplayRecipeInfo", "MealPlanning", meal.MealNameOne.RecipeId)" target="_blank">@meal.MealNameOne.RecipeName</a></td>
+        }
+        else if (meal.MealNameOne.CustomRecipeId != null)
+        {
+            <td><a href="/Recipe/DisplayCustomRecipeInfo?customRecipeId=@meal.MealNameOne.CustomRecipeId">@meal.MealNameOne.RecipeName</a></td>
+        }
+        else
+        {
+            <td></td>
+        }
+
+        @if (meal.MealNameTwo.RecipeId != null)
+        {
+            <td><a href="@Url.Action("DisplayRecipeInfo", "MealPlanning", meal.MealNameTwo.RecipeId)" target="_blank">@meal.MealNameTwo.RecipeName</a></td>
+        }
+        else if (meal.MealNameTwo.CustomRecipeId != null)
+        {
+            <td><a href="/Recipe/DisplayCustomRecipeInfo?customRecipeId=@meal.MealNameTwo.CustomRecipeId"> @meal.MealNameTwo.RecipeName</a></td>
+        }
+        else
+        {
+            <td></td>
+        }
+
+        @if (meal.MealNameThree.RecipeId != null)
+        {
+            <td><a href="@Url.Action("DisplayRecipeInfo", "MealPlanning", meal.MealNameThree.RecipeId)" target="_blank">@meal.MealNameThree.RecipeName</a></td>
+        }
+        else if (meal.MealNameThree.CustomRecipeId != null)
+        {
+            <td><a href="/Recipe/DisplayCustomRecipeInfo?customRecipeId=@meal.MealNameThree.CustomRecipeId">@meal.MealNameThree.RecipeName</a></td>
+        }
+        else
+        {
+            <td></td>
+        }
+
+        @if (meal.MealNameFour.RecipeId != null)
+        {
+            <td><a href="@Url.Action("DisplayRecipeInfo", "MealPlanning", meal.MealNameFour.RecipeId)" target="_blank">@meal.MealNameFour.RecipeName</a></td>
+        }
+        else if (meal.MealNameFour.CustomRecipeId != null)
+        {
+            <td><a href="/Recipe/DisplayCustomRecipeInfo?customRecipeId=@meal.MealNameFour.CustomRecipeId">@meal.MealNameFour.RecipeName</a></td>
+        }
+        else
+        {
+            <td></td>
+        }
+
+        @if (meal.MealNameFive.RecipeId != null)
+        {
+            <td><a href="@Url.Action("DisplayRecipeInfo", "MealPlanning", meal.MealNameFive.RecipeId)" target="_blank">@meal.MealNameFive.RecipeName</a></td>
+        }
+        else if (meal.MealNameFive.CustomRecipeId != null)
+        {
+            <td><a href="/Recipe/DisplayCustomRecipeInfo?customRecipeId=@meal.MealNameFive.CustomRecipeId">@meal.MealNameFive.RecipeName</a></td>
+        }
+        else
+        {
+            <td></td>
+        }
+
+        @if (meal.MealNameSix.RecipeId != null)
+        {
+            <td><a href="@Url.Action("DisplayRecipeInfo", "MealPlanning", meal.MealNameSix.RecipeId)" target="_blank">@meal.MealNameSix.RecipeName</a></td>
+        }
+        else if (meal.MealNameSix.CustomRecipeId != null)
+        {
+            <td><a href="/Recipe/DisplayCustomRecipeInfo?customRecipeId=@meal.MealNameSix.CustomRecipeId">@meal.MealNameSix.RecipeName</a></td>
+        }
+        else
+        {
+            <td></td>
+        }
+
+        @if (meal.MealNameSeven.RecipeId != null)
+        {
+            <td><a href="@Url.Action("DisplayRecipeInfo", "MealPlanning", meal.MealNameSeven.RecipeId)" target="_blank">@meal.MealNameSeven.RecipeName</a></td>
+        }
+        else if (meal.MealNameSeven.CustomRecipeId != null)
+        {
+            <td><a href="/Recipe/DisplayCustomRecipeInfo?customRecipeId=@meal.MealNameSeven.CustomRecipeId">@meal.MealNameSeven.RecipeName</a></td>
+        }
+        else
+        {
+            <td></td>
+        }
+    </tr>
+                }
+            
+        </table>
+</div>

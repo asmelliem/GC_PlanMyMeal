@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace GC_PlanMyMeal.RecipeService
 {
+
     public class RecipeClient : ISearchRecipe
     {
         private readonly HttpClient _httpClient;
@@ -23,7 +24,7 @@ namespace GC_PlanMyMeal.RecipeService
             _config = config;
         }
 
-        public async Task<Recipe> SearchForRecipeById (int? id)
+        public virtual async Task<Recipe> SearchForRecipeById (int? id)
         {            
             var response = await _httpClient.GetAsync($"recipes/{id}/information?apiKey={_config.ApiKey}");
             var recipe = JsonConvert.DeserializeObject<Recipe>(await response.Content.ReadAsStringAsync());

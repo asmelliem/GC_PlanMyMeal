@@ -1,4 +1,5 @@
 ﻿using GC_PlanMyMeal.Models;
+using GC_PlanMyMeal.Models.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,5 +18,6 @@ namespace GC_PlanMyMeal.Repository
         Task<CustomRecipe> RetrieveCustomRecipe(string userId, int? customRecipeId);
         Task<bool> UpdateRecipe(CustomRecipe customRecipe);
         Task <bool> SaveMealPlan(RecipeCalendar recipe);
+        Task<List<RecipeCalendar>> GetMealPlan(string userId);
     }
 }

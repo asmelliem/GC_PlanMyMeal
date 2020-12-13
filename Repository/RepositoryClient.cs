@@ -1,5 +1,6 @@
 ﻿using GC_PlanMyMeal.Areas.Identity.Data;
 using GC_PlanMyMeal.Models;
+using GC_PlanMyMeal.Models.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -139,6 +140,13 @@ namespace GC_PlanMyMeal.Repository
                 Console.WriteLine(ex);
                 return false;
             }
+        }
+
+        public async Task<List<RecipeCalendar>> GetMealPlan(string userId)
+        {
+            var result = await _context.RecipeCalendars.Where(r => r.UserId == userId && r.CookDate >= DateTime.Today && r.CookDate <= DateTime.Today.AddDays(6)).ToListAsync();
+            return result;
+            
         }
     }
 }

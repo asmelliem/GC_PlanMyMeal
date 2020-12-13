@@ -135,10 +135,10 @@ namespace GC_PlanMyMeal.Controllers
             return View("CreateRecipePage", customRecipe);
         }
 
-        public async Task<IActionResult> DisplayCustomRecipeInfo(SavedRecipeListViewModel recipe)
+        public async Task<IActionResult> DisplayCustomRecipeInfo(int customRecipeId)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var customRecipeInfo = await _repositoryClient.RetrieveCustomRecipe(userId, recipe.CustomeRecipeId);
+            var customRecipeInfo = await _repositoryClient.RetrieveCustomRecipe(userId, customRecipeId);
             var ingredientsList = customRecipeInfo.Ingredients.Split(',').ToList();
             var customRecipe = new DisplayCustomRecipeInfoModelView()
             {

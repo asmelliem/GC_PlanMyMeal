@@ -1,0 +1,28 @@
+﻿@model GC_PlanMyMeal.Models.ViewModel.MealPlanningFormViewModel
+@{
+    ViewBag.Title = "Meal Plan Form";
+}
+
+<form asp-controller="MealPlanning" asp-action="SaveMealPlan" method="post">
+    @if (Model.CustomRecipeId != null)
+    {
+        <div class="form-group">
+            <input asp-for="@Model.CustomRecipeId" name="CustomRecipeId" type="Number" class="form-control" hidden>
+        </div>
+    }
+    @if (Model.RecipeId != null)
+    {
+        <div class="form-group">
+            <input asp-for="@Model.RecipeId" name="RecipeId" type="Number" class="form-control" hidden>
+        </div>
+    }
+    <div class="form-group">
+        <label>Enter The Date You Would Like To Prep This Meal</label>
+        <input asp-for="@Model.CookDate" name="CookDate" type="date" value="@DateTime.Today.ToString("yyyy-MM-dd")" max="@DateTime.Today.AddDays(6).ToString("yyyy-MM-dd")" min="@DateTime.Today.ToString("yyyy-MM-dd")" class="form-control">
+    </div>
+    <div class="form-group">
+        <label>Enter the meal type</label>
+        <select asp-for="@Model.MealTime" name="MealTime" asp-items="@(new SelectList(Model.MealTimeSelectOptions, "MealTimeType", "MealTimeTypeValue"))"></select>
+    </div>
+    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+</form>

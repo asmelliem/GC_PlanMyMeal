@@ -68,7 +68,6 @@ namespace GC_PlanMyMeal.Repository
             return result;
         }
 
-
         public async Task<bool> DeleteRecipe(string userId, int? recipeId, int? customId)
         {
             try
@@ -122,6 +121,20 @@ namespace GC_PlanMyMeal.Repository
                 return true;
             }
             catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+                return false;
+            }
+        }
+        public async Task<bool> SaveMealPlan(RecipeCalendar recipe)
+        {
+            try
+            {
+                await _context.RecipeCalendars.AddAsync(recipe);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine(ex);
                 return false;

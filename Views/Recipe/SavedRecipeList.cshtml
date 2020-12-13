@@ -35,13 +35,15 @@
                 }
                 @if (item.CustomeRecipeId != null)
                 {
-                    <button type="button" class="btn btn-success"  onclick="location.href='@Url.Action("DisplayCustomRecipeInfo", "Recipe", item)'">More Info</button>
+                    <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("DisplayCustomRecipeInfo", "Recipe", item)'">More Info</button>
+
                 }
                 <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("DeleteSavedRecipe", "Recipe", item)'">Delete</button>
                 @if (item.RecipeId == null)
                 {
                     <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("EditCustomRecipe", "Recipe", item)'">Edit Custom Recipe</button>
                 }
+                <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("MealPlanningForm", "MealPlanning", item)'">Add To Meal Plan</button>
             </td>
         </tr>
         }

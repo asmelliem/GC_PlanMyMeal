@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace GC_PlanMyMeal.RecipeService
 {
-    public class RecipeClientCache : RecipeClient
+    public class RecipeClientWithCache : RecipeClient
     {
-        private static ConcurrentDictionary<int, Recipe> _recipeCache;
+        private readonly ConcurrentDictionary<int, Recipe> _recipeCache;
 
-        public RecipeClientCache(HttpClient httpClient, SpoonacularConfiguration config) : base(httpClient, config)
+        public RecipeClientWithCache(HttpClient httpClient, SpoonacularConfiguration config, ConcurrentDictionary<int, Recipe> recipeCache) : base(httpClient, config)
         {
-            _recipeCache = new ConcurrentDictionary<int, Recipe>();
+            _recipeCache = recipeCache;
         }
 
         public override async Task<Recipe> SearchForRecipeById(int? id)

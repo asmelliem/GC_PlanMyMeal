@@ -1,6 +1,7 @@
 using GC_PlanMyMeal.Areas.Identity.Data;
 using GC_PlanMyMeal.Configuration;
 using GC_PlanMyMeal.RecipeService;
+using GC_PlanMyMeal.RecipeService.Models;
 using GC_PlanMyMeal.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -37,7 +39,8 @@ namespace GC_PlanMyMeal
                 ApiKey = apiKey
             };
             services.AddSingleton(spoonacularConfig);
-            services.AddHttpClient<ISearchRecipe, RecipeClientCache>(client =>
+            services.AddSingleton<ConcurrentDictionary<int, Recipe>>();
+            services.AddHttpClient<ISearchRecipe, RecipeClientWithCache>(client =>
             {
                 client.BaseAddress = new Uri("https://api.spoonacular.com/");
             });

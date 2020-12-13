@@ -3,6 +3,7 @@
     ViewBag.Title = "Meal Calendar";
 }
 
+<button type="button" class="btn btn-success" onclick="location.href='@Url.Action("MealDeleteCalendar", "MealPlanning", Model)'">Delete Meals</button>
 <div>
     <table class="table">
         <tr>
@@ -19,7 +20,7 @@
         <td>@meal.MealTimeType</td>
         @if (meal.MealNameOne.RecipeId != null)
         {
-            <td><a href="@Url.Action("DisplayRecipeInfo", "MealPlanning", meal.MealNameOne.RecipeId)" target="_blank">@meal.MealNameOne.RecipeName</a></td>
+            <td><a href="/MealPlanning/DisplayRecipeInfo?recipeId=@meal.MealNameOne.RecipeId" target="_blank">@meal.MealNameOne.RecipeName</a></td>
         }
         else if (meal.MealNameOne.CustomRecipeId != null)
         {
@@ -32,7 +33,7 @@
 
         @if (meal.MealNameTwo.RecipeId != null)
         {
-            <td><a href="@Url.Action("DisplayRecipeInfo", "MealPlanning", meal.MealNameTwo.RecipeId)" target="_blank">@meal.MealNameTwo.RecipeName</a></td>
+            <td><a href="/MealPlanning/DisplayRecipeInfo?recipeId=@meal.MealNameTwo.RecipeId" target="_blank">@meal.MealNameTwo.RecipeName</a></td>
         }
         else if (meal.MealNameTwo.CustomRecipeId != null)
         {
@@ -45,7 +46,7 @@
 
         @if (meal.MealNameThree.RecipeId != null)
         {
-            <td><a href="@Url.Action("DisplayRecipeInfo", "MealPlanning", meal.MealNameThree.RecipeId)" target="_blank">@meal.MealNameThree.RecipeName</a></td>
+            <td><a href="/MealPlanning/DisplayRecipeInfo?recipeId=@meal.MealNameThree.RecipeId" target="_blank">@meal.MealNameThree.RecipeName</a></td>
         }
         else if (meal.MealNameThree.CustomRecipeId != null)
         {
@@ -58,7 +59,7 @@
 
         @if (meal.MealNameFour.RecipeId != null)
         {
-            <td><a href="@Url.Action("DisplayRecipeInfo", "MealPlanning", meal.MealNameFour.RecipeId)" target="_blank">@meal.MealNameFour.RecipeName</a></td>
+            <td><a href="/MealPlanning/DisplayRecipeInfo?recipeId=@meal.MealNameFour.RecipeId" target="_blank">@meal.MealNameFour.RecipeName</a></td>
         }
         else if (meal.MealNameFour.CustomRecipeId != null)
         {
@@ -71,7 +72,7 @@
 
         @if (meal.MealNameFive.RecipeId != null)
         {
-            <td><a href="@Url.Action("DisplayRecipeInfo", "MealPlanning", meal.MealNameFive.RecipeId)" target="_blank">@meal.MealNameFive.RecipeName</a></td>
+            <td><a href="/MealPlanning/DisplayRecipeInfo?recipeId=@meal.MealNameFive.RecipeId" target="_blank">@meal.MealNameFive.RecipeName</a></td>
         }
         else if (meal.MealNameFive.CustomRecipeId != null)
         {
@@ -84,7 +85,7 @@
 
         @if (meal.MealNameSix.RecipeId != null)
         {
-            <td><a href="@Url.Action("DisplayRecipeInfo", "MealPlanning", meal.MealNameSix.RecipeId)" target="_blank">@meal.MealNameSix.RecipeName</a></td>
+            <td><a href="/MealPlanning/DisplayRecipeInfo?recipeId=@meal.MealNameSix.RecipeId" target="_blank">@meal.MealNameSix.RecipeName</a></td>
         }
         else if (meal.MealNameSix.CustomRecipeId != null)
         {
@@ -97,7 +98,7 @@
 
         @if (meal.MealNameSeven.RecipeId != null)
         {
-            <td><a href="@Url.Action("DisplayRecipeInfo", "MealPlanning", meal.MealNameSeven.RecipeId)" target="_blank">@meal.MealNameSeven.RecipeName</a></td>
+            <td><a href="/MealPlanning/DisplayRecipeInfo?recipeId=@meal.MealNameSeven.RecipeId" target="_blank">@meal.MealNameSeven.RecipeName</a></td>
         }
         else if (meal.MealNameSeven.CustomRecipeId != null)
         {

@@ -1,4 +1,5 @@
-﻿using GC_PlanMyMeal.DatabaseModels;
+﻿using GC_PlanMyMeal.Areas.Identity.Data;
+using GC_PlanMyMeal.DatabaseModels;
 using GC_PlanMyMeal.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -11,54 +12,39 @@ using System.Threading.Tasks;
 
 namespace GC_PlanMyMeal.Controllers
 {
+
     public class PreferencesController : Controller
     {
+        private readonly GC_PlanMyMealIdentityDbContext _context;
+
+        public PreferencesController(GC_PlanMyMealIdentityDbContext context)
+        {
+            _context = context;
+        }
         public IActionResult UserPreferences()
         {
-            var userPreferences = new UserPreferences();
-            userPreferences.ClientSelectedPreferences = new UserPreferencesClientSelected();
-            userPreferences.PreferencesOptions = new UserPrefrencesOptions()
-            {
-                Diet = AllowedUserPreferenceOptions.Diet,
-                Intolerances = AllowedUserPreferenceOptions.Intolerances
-            };
-            return View(userPreferences);
+            return View();
         }
 
         [HttpPost]
-        public IActionResult SavePrefrences()
+        public IActionResult SavePreferences(string diet, Intolerances intolerances, int? maxCalorie, int? maxCarb, int? maxProtein, int? minProtein)
         {
-            var request = this.Request;
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            request.Form.TryGetValue("ClientSelectedPreferences.Diet", out var diet);
-            request.Form.TryGetValue("ClientSelectedPreferences.MaxCalorie", out var maxCalorie);
-            request.Form.TryGetValue("ClientSelectedPreferences.MaxCarb", out var maxCarb);
-            request.Form.TryGetValue("ClientSelectedPreferences.MinProtein", out var minProtein);
-            request.Form.TryGetValue("ClientSelectedPreferences.MaxProtein", out var maxProtein);
-
-            var userIntolerances = new StringBuilder();
-            foreach(var intolerance in AllowedUserPreferenceOptions.Intolerances)
-            {
-                if(request.Form.TryGetValue(intolerance, out var intoleranceValue))
-                {
-                    if(intoleranceValue[0] == "true")
-                    {
-                        userIntolerances.Append($"{intolerance},");
-                    }                        
-                }
-            }
-
-            var savedUserPreferences = new DBUserPreferences()
+            var savedUserPreferences = new UserPreference()
             {
                 UserId = userId,
-                Diet = diet.FirstOrDefault(),
-                Intolerances = userIntolerances.ToString(),
-                MaxCalorie = int.TryParse(maxCalorie.FirstOrDefault(), out var maxCalories) ? maxCalories : null,
-                MaxCarb = int.TryParse(maxCarb.FirstOrDefault(), out var maxCarbs) ? maxCarbs : null,
-                MaxProtein = int.TryParse(maxProtein.FirstOrDefault(), out var maxProteins) ? maxProteins : null,
-                MinProtein = int.TryParse(minProtein.FirstOrDefault(), out var minProteins) ? minProteins : null
+                Diet = diet,
+                Intolerances = intolerances.ToString(),
+                MaxCalorie = maxCalorie,
+                MaxCarb = maxCarb,
+                MaxProtein = maxProtein,
+                MinProtein = minProtein,
             };
-            return View();
+
+            
+            _context.UserPreferences.Add(savedUserPreferences);
+            _context.SaveChangesAsync();
+            return View(savedUserPreferences);
         }
     }
 }

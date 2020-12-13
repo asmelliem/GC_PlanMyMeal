@@ -1,0 +1,45 @@
+﻿@model UserPreference
+@{
+    ViewData["Title"] = "User Saved Preferences";
+}
+
+
+<h2>Success!! Your User Preferences Are Saved!</h2>
+<br />
+<br />
+
+<table class="table table-striped table-hover" style="float:left;text-align:left;width:400px">
+
+    <tr>
+        <th>Preference</th>
+        <th>User Preferences</th>
+    </tr>
+    <tr>
+        <td>Diet</td>
+        <td>@Model.Diet</td>
+    </tr>
+    <tr>
+        <td>Intolerences</td>
+        <td>@Model.Intolerances</td>
+    </tr>
+    <tr>
+        <td>Maximum Calories</td>
+        <td>@Model.MaxCalorie</td>
+    </tr>
+    <tr>
+        <td>Maximum Carbs</td>
+        <td>@Model.MaxCarb</td>
+    </tr>
+    <tr>
+        <td>Maximum Protein</td>
+        <td>@Model.MaxProtein</td>
+    </tr>
+    <tr>
+        <td>Minimum Protein</td>
+        <td>@Model.MinProtein</td>
+    </tr>
+</table>
+
+<div style="float:left">
+    <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("Index", "Home")'">Return Home</button>
+</div>

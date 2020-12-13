@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace GC_PlanMyMeal.Models
 {
-    public class UserPreferences
+    public class UserPreferencesViewModel
     {
-        
         public string UserID { get; set; }
         public string Diet { get; set; }
         public Intolerances Intolerances { get; set; }

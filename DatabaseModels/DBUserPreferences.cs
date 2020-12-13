@@ -5,8 +5,11 @@ using System.Threading.Tasks;
 
 namespace GC_PlanMyMeal.DatabaseModels
 {
+
+    //Needs to be deleted.
     public class DBUserPreferences
     {
+        public int Id { get; set; }
         public string UserId { get; set; }
         public string Diet { get; set; }
         public String Intolerances { get; set; }

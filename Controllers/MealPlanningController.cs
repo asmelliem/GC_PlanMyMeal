@@ -128,7 +128,7 @@ namespace GC_PlanMyMeal.Controllers
         public async Task<IActionResult> DeleteAPIRecipe(int recipeId, int numDaysFromToday)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var recipeIsDelete = await _repositoryClient.DeleteCustomRecipeFromMealPlan(recipeId, userId, numDaysFromToday);
+            var recipeIsDelete = await _repositoryClient.DeleteAPIRecipeFromMealPlan(recipeId, userId, numDaysFromToday);
             if (recipeIsDelete)
             {
                 return RedirectToAction("MealDeleteCalendar", "MealPlanning");

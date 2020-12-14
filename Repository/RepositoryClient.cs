@@ -158,7 +158,8 @@ namespace GC_PlanMyMeal.Repository
         {
             try
             {
-                var recipe = await _context.RecipeCalendars.FirstOrDefaultAsync(r => r.UserId == userId && r.CustomRecipeId == customRecipeId && r.CookDate == DateTime.Today.AddDays(numDaysFromToday));
+                var day = DateTime.Today.AddDays(numDaysFromToday);
+                var recipe = await _context.RecipeCalendars.FirstOrDefaultAsync(r => r.UserId == userId && r.CustomRecipeId == customRecipeId && r.CookDate == day);
                 _context.RecipeCalendars.Remove(recipe);
                 _context.SaveChanges();
                 return true;
@@ -171,9 +172,10 @@ namespace GC_PlanMyMeal.Repository
         }
         public async Task<bool> DeleteAPIRecipeFromMealPlan(int recipeId, string userId, int numDaysFromToday)
         {
+            var day = DateTime.Today.AddDays(numDaysFromToday);
             try
             {
-                var recipe = await _context.RecipeCalendars.FirstOrDefaultAsync(r => r.UserId == userId && r.RecipeId == recipeId && r.CookDate == DateTime.Today.AddDays(numDaysFromToday));
+                var recipe = await _context.RecipeCalendars.FirstOrDefaultAsync(r => r.UserId == userId && r.RecipeId == recipeId && r.CookDate == day);
                 _context.RecipeCalendars.Remove(recipe);
                 _context.SaveChanges();
                 return true;

@@ -25,6 +25,8 @@ namespace GC_PlanMyMeal.Controllers
             _context = context;
             _preferencesClient = preferencesClient;
         }
+
+        //displaying either blank form is user has not yet saved preferences or table of saved preferences
         public async Task<IActionResult> UserPreferences()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -42,6 +44,7 @@ namespace GC_PlanMyMeal.Controllers
             }
         }
 
+        //Method to display saved user preferences
         [HttpPost]
         public async Task<IActionResult> SavePreferences(UserPreferencesViewModel userPreferencesViewModel)
         {
@@ -59,7 +62,7 @@ namespace GC_PlanMyMeal.Controllers
             };
             return View(savedUserPreferencesModel);
         }
-
+        //Displays user preferences on an edit screen.
         [HttpGet]
         public async Task<IActionResult> EditPreferences()
         {
@@ -94,6 +97,7 @@ namespace GC_PlanMyMeal.Controllers
             return View(retrieveUserPreferencesModel);
         }
 
+        //writing changes to user preferences to the database
         [HttpPost]
         public async Task<IActionResult> EditPreferencesSaved(UserPreferencesViewModel userPreferenceViewModel)
         {
@@ -102,7 +106,7 @@ namespace GC_PlanMyMeal.Controllers
             var previousPreferences = await _preferencesClient.RetrieveUserPreferences(userId);
             if (previousPreferences == null)
             {
-                //why is the user editing a preference? should we just save instead? idk for u to decide
+                //Redirect user
             }
 
            

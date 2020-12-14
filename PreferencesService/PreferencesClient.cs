@@ -18,6 +18,7 @@ namespace GC_PlanMyMeal.PreferencesService
             _context = context;
         }
 
+        //Checks to see if user has saved preferences
        public async Task<bool> SavedUserPreferences(string userId)
         {
             var result = await _context.UserPreferences.FirstOrDefaultAsync(r => r.UserId == userId);
@@ -31,12 +32,14 @@ namespace GC_PlanMyMeal.PreferencesService
             }
         }
 
+        //Returns user preferences
         public async Task<UserPreference> RetrieveUserPreferences(string userId)
         {
             var result = await _context.UserPreferences.FirstOrDefaultAsync(r => r.UserId == userId);
             return result;
         }
 
+        //Saves user preferences to database
         public async Task<UserPreference> SaveUserPreferences(int id, string userId, string diet, Intolerances intolerances, int? maxCalorie, int? maxCarb, int? maxProtein, int? minProtein)
         {
             var savedUserPreferences = new UserPreference()

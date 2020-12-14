@@ -99,14 +99,32 @@ namespace GC_PlanMyMeal.Controllers
             return Redirect(recipe.SourceUrl);
         }
 
-        public async Task<IActionResult> DeleteCustomRecipe(int customRecipeId)
+        public async Task<IActionResult> DeleteCustomRecipe(int customRecipeId, int numDaysFromToday)
         {
-            return View();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var recipeIsDelete = await _repositoryClient.DeleteCustomRecipeFromMealPlan(customRecipeId, userId, numDaysFromToday);
+            if (recipeIsDelete)
+            {
+                return RedirectToAction("MealDeleteCalendar", "MealPlanning");
+            }
+            else
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
-        public async Task<IActionResult> DeleteAPIRecipe(int recipeId)
+        public async Task<IActionResult> DeleteAPIRecipe(int recipeId, int numDaysFromToday)
         {
-            return View();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var recipeIsDelete = await _repositoryClient.DeleteCustomRecipeFromMealPlan(recipeId, userId, numDaysFromToday);
+            if (recipeIsDelete)
+            {
+                return RedirectToAction("MealDeleteCalendar", "MealPlanning");
+            }
+            else
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public async Task<IActionResult> MealDeleteCalendar()

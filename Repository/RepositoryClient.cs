@@ -37,7 +37,6 @@ namespace GC_PlanMyMeal.Repository
             }         
             return true;
         }
-
         public async Task<bool> FindSavedRecipe(int recipeId, string userId)
         {
             var result = await _context.SavedRecipes.FirstOrDefaultAsync(r => r.RecipeId == recipeId && r.UserId == userId);
@@ -50,25 +49,21 @@ namespace GC_PlanMyMeal.Repository
                 return true;
             }
         }
-
         public async Task<List<SavedRecipe>> RetrieveRecipeList(string userId)
         {
             var result = await _context.SavedRecipes.Where(r => r.UserId == userId).ToListAsync();
             return result;
         }
-
         public async Task<CustomRecipe> RetrieveCustomRecipe(string userId, int? customRecipeId)
         {
             var result = await _context.CustomRecipes.FirstOrDefaultAsync(r => r.UserId == userId && r.Id == customRecipeId);
             return result;
         }
-
         public async Task<List<CustomRecipe>> RetrieveCustomRecipeList(string userId)
         {
             var result = await _context.CustomRecipes.Where(r => r.UserId == userId).ToListAsync();
             return result;
         }
-
         public async Task<bool> DeleteRecipe(string userId, int? recipeId, int? customId)
         {
             try
@@ -93,7 +88,6 @@ namespace GC_PlanMyMeal.Repository
                 return false;
             }
         }
-
         public async Task<bool> AddCustomRecipe(CustomRecipe customRecipe)
         {
             try
@@ -108,7 +102,6 @@ namespace GC_PlanMyMeal.Repository
                 return false;
             }
         }
-
         public async Task<bool> UpdateRecipe(CustomRecipe customRecipe)
         {
             try
@@ -141,12 +134,41 @@ namespace GC_PlanMyMeal.Repository
                 return false;
             }
         }
-
         public async Task<List<RecipeCalendar>> GetMealPlan(string userId)
         {
             var result = await _context.RecipeCalendars.Where(r => r.UserId == userId && r.CookDate >= DateTime.Today && r.CookDate <= DateTime.Today.AddDays(6)).ToListAsync();
             return result;
             
+        }
+        public async Task<bool> DeleteCustomRecipeFromMealPlan(int customRecipeId, string userId, int numDaysFromToday)
+        {
+            try
+            {
+                var recipe = await _context.RecipeCalendars.FirstOrDefaultAsync(r => r.UserId == userId && r.CustomRecipeId == customRecipeId && r.CookDate == DateTime.Today.AddDays(numDaysFromToday));
+                _context.RecipeCalendars.Remove(recipe);
+                _context.SaveChanges();
+                return true;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+                return false;
+            }
+        }
+        public async Task<bool> DeleteAPIRecipeFromMealPlan(int recipeId, string userId, int numDaysFromToday)
+        {
+            try
+            {
+                var recipe = await _context.RecipeCalendars.FirstOrDefaultAsync(r => r.UserId == userId && r.RecipeId == recipeId && r.CookDate == DateTime.Today.AddDays(numDaysFromToday));
+                _context.RecipeCalendars.Remove(recipe);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return false;
+            }
         }
     }
 }

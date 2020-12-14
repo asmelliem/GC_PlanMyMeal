@@ -19,5 +19,7 @@ namespace GC_PlanMyMeal.Repository
         Task<bool> UpdateRecipe(CustomRecipe customRecipe);
         Task <bool> SaveMealPlan(RecipeCalendar recipe);
         Task<List<RecipeCalendar>> GetMealPlan(string userId);
+        Task<bool> DeleteCustomRecipeFromMealPlan(int customRecipeId, string userId, int numDaysFromToday);
+        Task<bool> DeleteAPIRecipeFromMealPlan(int recipeId, string userId, int numDaysFromToday);
     }
 }

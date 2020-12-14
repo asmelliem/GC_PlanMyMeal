@@ -69,6 +69,11 @@ namespace GC_PlanMyMeal.Controllers
             return View(recipeInfo);
         }
 
+        public IActionResult MealCalendarError()
+        {
+            return View();
+
+        }
         [HttpPost]
         public async Task<IActionResult> SaveMealPlan(int? CustomRecipeId, int? RecipeId, DateTime CookDate, MealTimeType MealTime)
         {
@@ -81,16 +86,23 @@ namespace GC_PlanMyMeal.Controllers
                 CookDate = CookDate,
                 MealTime = MealTime.ToString()
             };
-
-            var isMealPlanSaved = await _repositoryClient.SaveMealPlan(recipe);
-            if(isMealPlanSaved)
+            var isExistingMealPlan = await _repositoryClient.VerifyMealPlanStatus(recipe);
+            if(isExistingMealPlan)
             {
-                return RedirectToAction("MealCalendar", "MealPlanning");
+                return RedirectToAction("MealCalendarError", "MealPlanning");
             }
             else
             {
-                return RedirectToAction("Error", "Home");
-            }
+                var isMealPlanSaved = await _repositoryClient.SaveMealPlan(recipe);
+                if (isMealPlanSaved)
+                {
+                    return RedirectToAction("MealCalendar", "MealPlanning");
+                }
+                else
+                {
+                    return RedirectToAction("Error", "Home");
+                }
+            }            
         }
 
         public async Task<IActionResult> DisplayRecipeInfo(int recipeId)

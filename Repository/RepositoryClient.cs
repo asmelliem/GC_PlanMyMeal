@@ -140,6 +140,20 @@ namespace GC_PlanMyMeal.Repository
             return result;
             
         }
+
+        public async Task<bool> VerifyMealPlanStatus(RecipeCalendar recipe)
+        {
+            var result = await _context.RecipeCalendars.FirstOrDefaultAsync(r => r.UserId == recipe.UserId && r.CookDate == recipe.CookDate && r.MealTime == recipe.MealTime);
+            if(result == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+            
+        }
         public async Task<bool> DeleteCustomRecipeFromMealPlan(int customRecipeId, string userId, int numDaysFromToday)
         {
             try

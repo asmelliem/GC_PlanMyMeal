@@ -11,7 +11,7 @@ namespace GC_PlanMyMeal
 {
     public static class MappingHelpers
     {
-
+        //Ueed to map recipes we retrieve of type RecipeCalendar to convert to type RecipeInfoViewModel
         public static async Task<RecipeInfoViewModel> MealMapping(RecipeCalendar recipe, ISearchRecipe recipeClient, IRepositoryClient repositoryClient)
         {
             if(recipe == null)

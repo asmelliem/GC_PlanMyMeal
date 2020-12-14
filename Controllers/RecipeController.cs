@@ -22,10 +22,9 @@ namespace GC_PlanMyMeal.Controllers
             _repositoryClient = repositoryClient;
         }
 
+        //get a list of the user's saved recipes and pass that to the view to display
         public async Task<IActionResult> SavedRecipeList()
-        {
-            //get a list of the user's saved recipes and pass that to the view to display
-            
+        {     
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var savedRecipeList = await _repositoryClient.RetrieveRecipeList(userId);
             var savedCustomRecipeList = await _repositoryClient.RetrieveCustomRecipeList(userId);
@@ -57,6 +56,7 @@ namespace GC_PlanMyMeal.Controllers
             return View(recipeList);
         }
 
+        //Deleting a saved recipe from the database and returning back to the saved recipe view
         public async Task<IActionResult> DeleteSavedRecipe(SavedRecipeListViewModel recipeInfo)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -80,11 +80,13 @@ namespace GC_PlanMyMeal.Controllers
             }            
         }
 
+        //Directs user to the Create Custom Recipe page/form
         public IActionResult CreateRecipePage()
         {
             return View(new CustomRecipeViewModel());
         }
 
+        //Adds custom recipe to the database, then redirects to the saved recipe view
         public async Task<IActionResult> CreateRecipe(string recipeName, string ingredients, string directions, string notes, int? id)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -118,6 +120,8 @@ namespace GC_PlanMyMeal.Controllers
             }
 
         }
+        
+        //Retrieve's custom recipe info to display on the edit form
         public async Task<IActionResult> EditCustomRecipe(SavedRecipeListViewModel recipe)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -134,6 +138,7 @@ namespace GC_PlanMyMeal.Controllers
             return View("CreateRecipePage", customRecipe);
         }
 
+        //Display custom recipe info for the user
         public async Task<IActionResult> DisplayCustomRecipeInfo(int customRecipeId)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);

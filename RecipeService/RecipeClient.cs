@@ -12,10 +12,11 @@ using System.Threading.Tasks;
 
 namespace GC_PlanMyMeal.RecipeService
 {
-
+    //Service that handles all API calls
     public class RecipeClient : ISearchRecipe
     {
         private readonly HttpClient _httpClient;
+        //Config/Settings file to call apiKey
         private readonly SpoonacularConfiguration _config;
 
         public RecipeClient(HttpClient httpClient, SpoonacularConfiguration config)
@@ -24,6 +25,7 @@ namespace GC_PlanMyMeal.RecipeService
             _config = config;
         }
 
+        //used to get recipe info by Id
         public virtual async Task<Recipe> SearchForRecipeById (int? id)
         {            
             var response = await _httpClient.GetAsync($"recipes/{id}/information?apiKey={_config.ApiKey}");
@@ -32,6 +34,7 @@ namespace GC_PlanMyMeal.RecipeService
         }
 
         //&intolerances=egg&diet=vegetarian&maxCarbs=400&maxProtein=15&minProtein=1
+        //Called to list out recipes based on the user search criteria
         public async Task<List<Recipe>> SearchForRecipeByQuery (string diet, Intolerances intolerance, int? maxCalorie, int? maxCarb, int? maxProtein, int? minProtein)
         {
             StringBuilder query = new StringBuilder();

@@ -19,6 +19,7 @@ namespace GC_PlanMyMeal.Repository
             _context = context;
         }
 
+        //Saves recipes to the database
         public async Task<bool> SaveRecipe(int? recipeId, string userId)
         {
             var savedRecipe = new SavedRecipe()
@@ -37,6 +38,7 @@ namespace GC_PlanMyMeal.Repository
             }         
             return true;
         }
+        //Verify if particular recipe is saved to the database
         public async Task<bool> FindSavedRecipe(int recipeId, string userId)
         {
             var result = await _context.SavedRecipes.FirstOrDefaultAsync(r => r.RecipeId == recipeId && r.UserId == userId);
@@ -49,21 +51,25 @@ namespace GC_PlanMyMeal.Repository
                 return true;
             }
         }
+        //Retrieve a list of saved recipes from the database
         public async Task<List<SavedRecipe>> RetrieveRecipeList(string userId)
         {
             var result = await _context.SavedRecipes.Where(r => r.UserId == userId).ToListAsync();
             return result;
         }
+        //Retreieve a particular custom recipe from the database
         public async Task<CustomRecipe> RetrieveCustomRecipe(string userId, int? customRecipeId)
         {
             var result = await _context.CustomRecipes.FirstOrDefaultAsync(r => r.UserId == userId && r.Id == customRecipeId);
             return result;
         }
+        //Retreieve a list of recipes from the databse
         public async Task<List<CustomRecipe>> RetrieveCustomRecipeList(string userId)
         {
             var result = await _context.CustomRecipes.Where(r => r.UserId == userId).ToListAsync();
             return result;
         }
+        //Deletes a recipe from the saved recipe table and returns true/false on success/failure
         public async Task<bool> DeleteRecipe(string userId, int? recipeId, int? customId)
         {
             try
@@ -88,6 +94,7 @@ namespace GC_PlanMyMeal.Repository
                 return false;
             }
         }
+        //Add custom recipe to the customRecipes table and returns true/false on success/failure
         public async Task<bool> AddCustomRecipe(CustomRecipe customRecipe)
         {
             try
@@ -102,6 +109,7 @@ namespace GC_PlanMyMeal.Repository
                 return false;
             }
         }
+        //Update custom recipe for customRecipes table and returns true/false on success/failure
         public async Task<bool> UpdateRecipe(CustomRecipe customRecipe)
         {
             try
@@ -120,6 +128,7 @@ namespace GC_PlanMyMeal.Repository
                 return false;
             }
         }
+        //Add meal to the RecipeCalendar table. Returns true/false on success/failure
         public async Task<bool> SaveMealPlan(RecipeCalendar recipe)
         {
             try
@@ -134,13 +143,14 @@ namespace GC_PlanMyMeal.Repository
                 return false;
             }
         }
+        //Returns a list of meals on the recipeCalendar for a particular user for meal planning
         public async Task<List<RecipeCalendar>> GetMealPlan(string userId)
         {
             var result = await _context.RecipeCalendars.Where(r => r.UserId == userId && r.CookDate >= DateTime.Today && r.CookDate <= DateTime.Today.AddDays(6)).ToListAsync();
             return result;
             
         }
-
+        //Used to verify if user already has an existing meal for the time and meal type
         public async Task<bool> VerifyMealPlanStatus(RecipeCalendar recipe)
         {
             var result = await _context.RecipeCalendars.FirstOrDefaultAsync(r => r.UserId == recipe.UserId && r.CookDate == recipe.CookDate && r.MealTime == recipe.MealTime);
@@ -154,6 +164,7 @@ namespace GC_PlanMyMeal.Repository
             }
             
         }
+        //Deletes custom recipe from RecipeCalendar. Returns true/false on success/failure
         public async Task<bool> DeleteCustomRecipeFromMealPlan(int customRecipeId, string userId, int numDaysFromToday)
         {
             try
@@ -170,6 +181,7 @@ namespace GC_PlanMyMeal.Repository
                 return false;
             }
         }
+        //Deletes api recipe from RecipeCalendar. Returns true/false on success/failure
         public async Task<bool> DeleteAPIRecipeFromMealPlan(int recipeId, string userId, int numDaysFromToday)
         {
             var day = DateTime.Today.AddDays(numDaysFromToday);

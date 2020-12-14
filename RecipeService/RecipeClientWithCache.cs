@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace GC_PlanMyMeal.RecipeService
 {
+    //Cache is used to store recipe Id so as to save api consumption when making the calls to search by recipe Id
     public class RecipeClientWithCache : RecipeClient
     {
         private readonly ConcurrentDictionary<int, Recipe> _recipeCache;

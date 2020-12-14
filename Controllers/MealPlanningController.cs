@@ -22,6 +22,10 @@ namespace GC_PlanMyMeal.Controllers
             _recipeClient = recipeClient;
             _repositoryClient = repositoryClient;
         }
+
+        //Calls the repositoryClient to get a list of meals by the user in the RecipeCalendar table for the next 6 days
+        //groups these meals by MealTime (breakfast,lunch,dinner,snack)
+        //Loops through the different gorupings in the meal group and maps out the meal to the correct day (mealNameOne, mealNameTwo)
         public async Task<ActionResult> MealCalendar()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -46,6 +50,8 @@ namespace GC_PlanMyMeal.Controllers
             return View(mealPlan);
         }
 
+
+        //Displays the list of meal time options for the form
         public IActionResult MealPlanningForm(SavedRecipeListViewModel recipe)
         {
             var mealTimeTypes = new List<MealTimeSelectOptions>();
@@ -74,6 +80,9 @@ namespace GC_PlanMyMeal.Controllers
             return View();
 
         }
+        
+        //Checks to make sure the user doesn't already have a meal in the same date/meal time. If not, then saves the meal
+        //to the database. If another already exists, returns error message page
         [HttpPost]
         public async Task<IActionResult> SaveMealPlan(int? CustomRecipeId, int? RecipeId, DateTime CookDate, MealTimeType MealTime)
         {
@@ -105,12 +114,15 @@ namespace GC_PlanMyMeal.Controllers
             }            
         }
 
+
+        //Returns recipe URL for the api recipes
         public async Task<IActionResult> DisplayRecipeInfo(int recipeId)
         {            
             var recipe = await _recipeClient.SearchForRecipeById(recipeId);
             return Redirect(recipe.SourceUrl);
         }
 
+        //Deletes custom recipes from RecipeCalendar database
         public async Task<IActionResult> DeleteCustomRecipe(int customRecipeId, int numDaysFromToday)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -125,6 +137,7 @@ namespace GC_PlanMyMeal.Controllers
             }
         }
 
+        //Deletes api recipes from RecipeCalendar database
         public async Task<IActionResult> DeleteAPIRecipe(int recipeId, int numDaysFromToday)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -139,6 +152,9 @@ namespace GC_PlanMyMeal.Controllers
             }
         }
 
+        //Calls the repositoryClient to get a list of meals by the user in the RecipeCalendar table for the next 6 days
+        //groups these meals by MealTime (breakfast,lunch,dinner,snack)
+        //Loops through the different gorupings in the meal group and maps out the meal to the correct day (mealNameOne, mealNameTwo)
         public async Task<IActionResult> MealDeleteCalendar()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);

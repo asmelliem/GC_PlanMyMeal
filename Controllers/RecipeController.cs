@@ -118,7 +118,6 @@ namespace GC_PlanMyMeal.Controllers
             }
 
         }
-        
         public async Task<IActionResult> EditCustomRecipe(SavedRecipeListViewModel recipe)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);

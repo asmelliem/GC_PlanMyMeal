@@ -5,6 +5,8 @@ using System.Collections.Generic;
 
 namespace GC_PlanMyMeal.Models
 {
+
+    //DB Model
     public partial class UserPreference
     {
         public int Id { get; set; }

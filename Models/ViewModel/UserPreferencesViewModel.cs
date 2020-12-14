@@ -7,6 +7,7 @@ namespace GC_PlanMyMeal.Models
 {
     public class UserPreferencesViewModel
     {
+        public int Id { get; set; }
         public string UserID { get; set; }
         public string Diet { get; set; }
         public Intolerances Intolerances { get; set; }

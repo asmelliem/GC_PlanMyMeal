@@ -96,8 +96,8 @@ namespace GC_PlanMyMeal.Controllers
                 UserId = userId,
                 RecipeName = recipeName,
                 Ingredients = ingredients,
-                Directions = directions,
-                Notes = notes
+                Directions = string.IsNullOrEmpty(directions) ? string.Empty : directions,
+                Notes = string.IsNullOrEmpty(notes) ? string.Empty : notes
             };
             var isRecipeSaved = false;
             if (id == null)
@@ -132,8 +132,8 @@ namespace GC_PlanMyMeal.Controllers
                 UserId = customRecipeInfo.UserId,
                 RecipeName = customRecipeInfo.RecipeName,
                 Ingredients = customRecipeInfo.Ingredients,
-                Directions = customRecipeInfo.Directions,
-                Notes = customRecipeInfo.Notes,
+                Directions = string.IsNullOrEmpty(customRecipeInfo.Directions) ?string.Empty : customRecipeInfo.Directions,
+                Notes = string.IsNullOrEmpty(customRecipeInfo.Notes) ? string.Empty : customRecipeInfo.Notes,
                 Id = customRecipeInfo.Id
             };
             return View("CreateRecipePage", customRecipe);

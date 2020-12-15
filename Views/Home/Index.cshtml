@@ -4,24 +4,27 @@
 
 @model HomeIndexViewModel
 
-<div style="width:500px;float:left" image>
+<div class="shadow p-3 mb-5 bg-white rounded" style="width:auto;float:left;height:auto">
     <h2>Random Surprise Recipe</h2>
     <br />
     <img src="@ViewBag.ImageURL" width="500" height="370" align="left">
     <br />
+    <br />
     <h2>@ViewBag.RecipeName</h2>
+    <br />
     @if (User.Identity.IsAuthenticated)
     {
-        <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("ConfirmSaveRecipe", "Home", new { id = ViewBag.Id })'">Click For More Info</button>
+        <button type="button" class="btn btn-outline-primary" onclick="location.href='@Url.Action("ConfirmSaveRecipe", "Home", new { id = ViewBag.Id })'">Click For More Info</button>
     }
     else
     {
         <p>Please log in to get more info and to save the recipe</p>
     }
+    <br />
 
 </div>
 
-<div style="width:500px;float:right;text-align:left">
+<div class="shadow p-3 mb-5 bg-white rounded" style="width:500px;float:right;text-align:left">
     <h2 class="text-center">Search Recipe</h2>
     <form asp-controller="Home" asp-action="SearchRecipe" method="post">
         <div class="form-group">
@@ -111,6 +114,6 @@
             <label>Minimum Protein</label>
             <input asp-for="@Model.MaxProtein" name="MinProtein" type="Number" class="form-control">
         </div>
-        <button type="submit" class="btn btn-primary mb-2">Search</button>
+        <button type="submit" class="btn btn-outline-primary">Search</button>
     </form>
 </div>

@@ -7,7 +7,7 @@
 <h2>Success!! Your User Preferences Are Saved!</h2>
 <br />
 <br />
-<form>
+<form height="auto">
     <table class="table table-striped table-hover" style="float:left;text-align:left;width:400px">
         <tr>
             <th>Preference</th>
@@ -38,7 +38,7 @@
             <td>@Model.MinProtein</td>
         </tr>
     </table>
-    <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("Index", "Home")'">Return Home</button>
-    <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("EditPreferences", "Preferences")'">Edit Preferences</button>
+    <button type="button" class="btn btn-outline-primary" onclick="location.href='@Url.Action("Index", "Home")'">Return Home</button>
+    <button type="button" class="btn btn-outline-info" onclick="location.href='@Url.Action("EditPreferences", "Preferences")'">Edit Preferences</button>
 </form>
 

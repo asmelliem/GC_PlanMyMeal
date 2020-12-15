@@ -24,5 +24,5 @@
         <label>Enter the meal type</label>
         <select asp-for="@Model.MealTime" name="MealTime" asp-items="@(new SelectList(Model.MealTimeSelectOptions, "MealTimeType", "MealTimeTypeValue"))"></select>
     </div>
-    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+    <button type="submit" class="btn btn-outline-primary">Submit</button>
 </form>

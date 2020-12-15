@@ -47,6 +47,13 @@ namespace GC_PlanMyMeal.RecipeService
             var response = await _httpClient.GetAsync($"/recipes/complexSearch?apiKey={_config.ApiKey}{query}&number=100");
             var recipe = JsonConvert.DeserializeObject<ReciepeApiResults>(await response.Content.ReadAsStringAsync());
             return recipe.Results;
-        }        
+        }     
+        
+        public async Task<List<Recipe>> SearchForAllRecipes()
+        {
+            var response = await _httpClient.GetAsync($"/recipes/complexSearch?apiKey={_config.ApiKey}&number=100");
+            var recipe = JsonConvert.DeserializeObject<ReciepeApiResults>(await response.Content.ReadAsStringAsync());
+            return recipe.Results;
+        }
     }
 }

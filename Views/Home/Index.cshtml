@@ -4,13 +4,13 @@
 
 @model HomeIndexViewModel
 
-<div class="shadow p-3 mb-5 bg-white rounded" style="width:auto;float:left;height:auto">
+<div class="shadow p-3 mb-5 bg-white rounded" style="width:600px;float:left;height:auto">
     <h2>Random Surprise Recipe</h2>
     <br />
     <img src="@ViewBag.ImageURL" width="500" height="370" align="left">
     <br />
     <br />
-    <h2>@ViewBag.RecipeName</h2>
+    <h2 >@ViewBag.RecipeName</h2>
     <br />
     @if (User.Identity.IsAuthenticated)
     {

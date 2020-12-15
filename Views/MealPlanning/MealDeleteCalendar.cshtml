@@ -3,9 +3,12 @@
     ViewBag.Title = "Delete Meal Calendar";
 }
 
-<h2>Warning! You are in deletion mode!</h2>
+<h2 style="color:red">Warning! You are in deletion mode!</h2>
+<br />
 <h3>Please click on the meal to delete it from your meal plan</h3>
+<br />
 <button type="button" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MealCalendar", "MealPlanning")'">Exit Delete Mode</button>
+<br />
 <div>
     <table class="table">
         <tr>

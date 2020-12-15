@@ -84,12 +84,20 @@ namespace GC_PlanMyMeal.Repository
                 else
                 {
                     var recipe = await _context.CustomRecipes.FirstOrDefaultAsync(r => r.Id == customId && r.UserId == userId);
-                    _context.CustomRecipes.Remove(recipe);
-                    _context.SaveChanges();
-                    return true;
+                    var isRemovedFromCustomRecipeTable = await DeleteParticularRecipeFromMealPlans(customId, userId);
+                    if(isRemovedFromCustomRecipeTable)
+                    {
+                        _context.CustomRecipes.Remove(recipe);
+                        _context.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }                
             }
-            catch
+            catch (Exception ex)
             {
                 return false;
             }
@@ -197,6 +205,26 @@ namespace GC_PlanMyMeal.Repository
                 Console.WriteLine(ex);
                 return false;
             }
+        }
+        public async Task<bool> DeleteParticularRecipeFromMealPlans(int? customRecipeId, string userId)
+        {
+            try
+            {
+                var recipes = await _context.RecipeCalendars.Where(r => r.UserId == userId && r.CustomRecipeId == customRecipeId).ToListAsync();
+                foreach (var recipe in recipes)
+                {
+                    _context.RecipeCalendars.Remove(recipe);
+                    _context.SaveChanges();
+                }
+                return true;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+                return false;
+            }
+            
+            
         }
     }
 }

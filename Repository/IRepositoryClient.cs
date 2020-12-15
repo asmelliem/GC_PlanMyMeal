@@ -22,6 +22,6 @@ namespace GC_PlanMyMeal.Repository
         Task<bool> DeleteCustomRecipeFromMealPlan(int customRecipeId, string userId, int numDaysFromToday);
         Task<bool> DeleteAPIRecipeFromMealPlan(int recipeId, string userId, int numDaysFromToday);
         Task<bool> VerifyMealPlanStatus(RecipeCalendar recipe);
-
+        Task<bool> DeleteParticularRecipeFromMealPlans(int? customRecipeId, string userId);
     }
 }

@@ -86,6 +86,7 @@ namespace GC_PlanMyMeal.Controllers
             return View(new CustomRecipeViewModel());
         }
 
+        [HttpPost]
         //Adds custom recipe to the database, then redirects to the saved recipe view
         public async Task<IActionResult> CreateRecipe(string recipeName, string ingredients, string directions, string notes, int? id)
         {

@@ -13,10 +13,10 @@
 <div>
     <table class="table">
         <tr>
-            <th>Meal Type</th>
+            <th style="width: 250px;" >Meal Type</th>
             @for (int i = 0; i < 7; i++)
             {
-                <th>@DateTime.Today.AddDays(i).DayOfWeek</th>
+                <th style="width: 250px;">@DateTime.Today.AddDays(i).DayOfWeek</th>
             }
         </tr>
 

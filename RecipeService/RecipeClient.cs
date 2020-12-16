@@ -45,14 +45,14 @@ namespace GC_PlanMyMeal.RecipeService
             if (maxCarb.HasValue) { query.Append($"&maxCarbs={maxCarb}"); }
             if (maxProtein.HasValue) { query.Append($"&maxProtein={maxProtein}"); }
             if (minProtein.HasValue) { query.Append($"&minProtein={minProtein}"); }
-            var response = await _httpClient.GetAsync($"/recipes/complexSearch?apiKey={_config.ApiKey}{query}&number=50");
+            var response = await _httpClient.GetAsync($"/recipes/complexSearch?apiKey={_config.ApiKey}{query}&number=10");
             var recipe = JsonConvert.DeserializeObject<ReciepeApiResults>(await response.Content.ReadAsStringAsync());
             return recipe.Results;
         }     
         
         public async Task<List<Recipe>> SearchForAllRecipes()
         {
-            var response = await _httpClient.GetAsync($"/recipes/complexSearch?apiKey={_config.ApiKey}&number=100");
+            var response = await _httpClient.GetAsync($"/recipes/complexSearch?apiKey={_config.ApiKey}&number=10");
             var recipe = JsonConvert.DeserializeObject<ReciepeApiResults>(await response.Content.ReadAsStringAsync());
             return recipe.Results;
         }

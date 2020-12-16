@@ -7,12 +7,14 @@
 {
     <h2>Create Your Own Recipe</h2>
 }
-
+<br />
+<br />
 @if (Model.Id != null)
 {
     <h2>Edit Your Own Recipe</h2>
 }
-
+<br />
+<br />
 <div>
     <form asp-controller="Recipe" asp-action="CreateRecipe" method="post">
         <div class="form-group">
@@ -42,7 +44,5 @@
         {
             <button type="submit" class="btn btn-primary mb-2">Edit Recipe</button>
         }
-
-
     </form>
 </div>

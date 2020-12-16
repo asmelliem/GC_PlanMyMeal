@@ -22,7 +22,7 @@
         <td>@meal.MealTimeType</td>
         @if (meal.MealNameOne.RecipeId != null)
         {
-            <td><a href="/MealPlanning/DisplayRecipeInfo?recipeId=@meal.MealNameOne.RecipeId" target="_blank">@meal.MealNameOne.RecipeName</a></td>
+            <td ><a href="/MealPlanning/DisplayRecipeInfo?recipeId=@meal.MealNameOne.RecipeId" target="_blank">@meal.MealNameOne.RecipeName</a></td>
         }
         else if (meal.MealNameOne.CustomRecipeId != null)
         {

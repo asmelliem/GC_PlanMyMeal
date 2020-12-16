@@ -33,9 +33,9 @@
             }
             @if (Model.UserSavedRecipe == false)
             {
-                <p>Are you sure you would like to save this recipe?</p><br />
-                <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("SaveRecipe", "Home", Model)'">Yes</button>
-                <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("Index", "Home", Model)'">No</button>
+                <p>Are you sure you would like to save this recipe?</p><br /><br />
+                <button type="button" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("SaveRecipe", "Home", Model)'">Yes</button>
+                <button type="button" class="btn btn-outline-danger" onclick="location.href='@Url.Action("Index", "Home", Model)'">No</button>
             }
         </div>
     </div>

@@ -1,6 +1,9 @@
 ﻿using GC_PlanMyMeal.Configuration;
+using GC_PlanMyMeal.Models;
 using GC_PlanMyMeal.RecipeService.Models;
+using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -31,7 +34,6 @@ namespace GC_PlanMyMeal.RecipeService
             recipe = await base.SearchForRecipeById(id);
             _recipeCache.TryAdd(id.Value, recipe);
             return recipe;
-        }
-
-    }
+        }        
+    }  
 }

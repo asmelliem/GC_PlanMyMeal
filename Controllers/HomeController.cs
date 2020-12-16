@@ -52,25 +52,46 @@ namespace GC_PlanMyMeal.Controllers
                 if (intolerenceList.Contains("wheat")) { intolerances.wheat = true; }
                 var recipeList = await _recipeClient.SearchForRecipeByQuery(userPreferences.Diet, intolerances, userPreferences.MaxCalorie, userPreferences.MaxCarb, userPreferences.MaxProtein, userPreferences.MinProtein);
                 Random random = new Random();
-                var randomRecipeNumber = random.Next(recipeList.Count);
-                var randomRecipe = recipeList.ElementAt(randomRecipeNumber);
-                ViewBag.RecipeName = randomRecipe.Title;
-                ViewBag.ImageURL = randomRecipe.Image;
-                ViewBag.Id = randomRecipe.Id;
-                ViewBag.Summary = randomRecipe.Summary;
-                return View();                
+                if (recipeList == null)
+                {
+                    TempData["Error"] = "You have used up all the api calls. Please swap out the API key";
+                    return RedirectToAction("Error", "Home");
+                }
+                else if (recipeList.Count == 0)
+                {
+                    ViewBag.RecipeName = "No found recipes based on your preferences";
+                    return View();
+                }
+                else
+                {
+                    var randomRecipeNumber = random.Next(recipeList.Count);
+                    var randomRecipe = recipeList.ElementAt(randomRecipeNumber);
+                    ViewBag.RecipeName = randomRecipe.Title;
+                    ViewBag.ImageURL = randomRecipe.Image;
+                    ViewBag.Id = randomRecipe.Id;
+                    ViewBag.Summary = randomRecipe.Summary;
+                    return View();
+                }                                
             }
             else
-            {
+            {   
                 var recipeList = await _recipeClient.SearchForAllRecipes();
                 Random random = new Random();
-                var randomRecipeNumber = random.Next(recipeList.Count);
-                var randomRecipe = recipeList.ElementAt(randomRecipeNumber);
-                ViewBag.RecipeName = randomRecipe.Title;
-                ViewBag.ImageURL = randomRecipe.Image;
-                ViewBag.Id = randomRecipe.Id;
-                ViewBag.Summary = randomRecipe.Summary;
-                return View();
+                if(recipeList == null)
+                {
+                    ViewBag.Error = "You have used up all the api calls. Please swap out the API key";
+                    return RedirectToAction("Error", "Home");
+                }
+                else
+                {
+                    var randomRecipeNumber = random.Next(recipeList.Count);
+                    var randomRecipe = recipeList.ElementAt(randomRecipeNumber);
+                    ViewBag.RecipeName = randomRecipe.Title;
+                    ViewBag.ImageURL = randomRecipe.Image;
+                    ViewBag.Id = randomRecipe.Id;
+                    ViewBag.Summary = randomRecipe.Summary;
+                    return View();
+                }                
             }
         }
         

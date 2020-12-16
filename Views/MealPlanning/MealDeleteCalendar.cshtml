@@ -25,7 +25,7 @@
                 <td>@meal.MealTimeType</td>
                 @if (meal.MealNameOne.RecipeId != null)
                 {
-                    <td><a href="/MealPlanning/DeleteAPIRecipe?numDaysFromToday=0&recipeId=@meal.MealNameOne.RecipeId" target="_blank">@meal.MealNameOne.RecipeName</a></td>
+                    <td><a href="/MealPlanning/DeleteAPIRecipe?numDaysFromToday=0&recipeId=@meal.MealNameOne.RecipeId">@meal.MealNameOne.RecipeName</a></td>
                 }
                 else if (meal.MealNameOne.CustomRecipeId != null)
                 {
@@ -38,7 +38,7 @@
 
                 @if (meal.MealNameTwo.RecipeId != null)
                 {
-                    <td><a href="/MealPlanning/DeleteAPIRecipe?numDaysFromToday=1&recipeId=@meal.MealNameTwo.RecipeId" target="_blank">@meal.MealNameTwo.RecipeName</a></td>
+                    <td><a href="/MealPlanning/DeleteAPIRecipe?numDaysFromToday=1&recipeId=@meal.MealNameTwo.RecipeId">@meal.MealNameTwo.RecipeName</a></td>
                 }
                 else if (meal.MealNameTwo.CustomRecipeId != null)
                 {

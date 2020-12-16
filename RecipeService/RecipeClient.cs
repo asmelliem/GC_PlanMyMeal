@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -35,16 +36,16 @@ namespace GC_PlanMyMeal.RecipeService
 
         //&intolerances=egg&diet=vegetarian&maxCarbs=400&maxProtein=15&minProtein=1
         //Called to list out recipes based on the user search criteria
-        public async Task<List<Recipe>> SearchForRecipeByQuery (string diet, Intolerances intolerance, int? maxCalorie, int? maxCarb, int? maxProtein, int? minProtein)
+        public virtual async Task<List<Recipe>> SearchForRecipeByQuery (string diet, Intolerances intolerance, int? maxCalorie, int? maxCarb, int? maxProtein, int? minProtein)
         {
             StringBuilder query = new StringBuilder();
             if(diet != null){ query.Append($"&diet={diet}"); }
             if (intolerance != null) { query.Append($"&intolerances={intolerance.ToString()}"); }
-            if (maxCalorie.HasValue) { query.Append($"&maxCalorie={maxCalorie}"); }
-            if (maxCarb.HasValue) { query.Append($"&maxCarb={maxCarb}"); }
+            if (maxCalorie.HasValue) { query.Append($"&maxCalories={maxCalorie}"); }
+            if (maxCarb.HasValue) { query.Append($"&maxCarbs={maxCarb}"); }
             if (maxProtein.HasValue) { query.Append($"&maxProtein={maxProtein}"); }
             if (minProtein.HasValue) { query.Append($"&minProtein={minProtein}"); }
-            var response = await _httpClient.GetAsync($"/recipes/complexSearch?apiKey={_config.ApiKey}{query}&number=100");
+            var response = await _httpClient.GetAsync($"/recipes/complexSearch?apiKey={_config.ApiKey}{query}&number=50");
             var recipe = JsonConvert.DeserializeObject<ReciepeApiResults>(await response.Content.ReadAsStringAsync());
             return recipe.Results;
         }     

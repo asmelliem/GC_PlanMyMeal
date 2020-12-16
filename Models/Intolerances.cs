@@ -3,7 +3,7 @@ using System.Text;
 
 namespace GC_PlanMyMeal.Models
 {
-    public class Intolerances
+    public class Intolerances 
     {
         public bool egg { get; set; }
         public bool dairy { get; set; }
@@ -16,8 +16,7 @@ namespace GC_PlanMyMeal.Models
         public bool soy { get; set; }
         public bool sulfite { get; set; }
         public bool treeNut { get; set; }
-        public bool wheat { get; set; }
-
+        public bool wheat { get; set; }     
 
         public override string ToString()
         {

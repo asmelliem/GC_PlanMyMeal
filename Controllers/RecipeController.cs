@@ -91,11 +91,16 @@ namespace GC_PlanMyMeal.Controllers
         public async Task<IActionResult> CreateRecipe(string recipeName, string ingredients, string directions, string notes, int? id)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if(string.IsNullOrEmpty(recipeName))
+            {
+                TempData["Error"] = "You cannot have a blank name for recipe. Please try again.";
+                return RedirectToAction("Error", "Home");
+            }
             var customRecipe = new CustomRecipe()
             {
                 UserId = userId,
                 RecipeName = recipeName,
-                Ingredients = ingredients,
+                Ingredients = string.IsNullOrEmpty(ingredients) ? string.Empty : ingredients,
                 Directions = string.IsNullOrEmpty(directions) ? string.Empty : directions,
                 Notes = string.IsNullOrEmpty(notes) ? string.Empty : notes
             };

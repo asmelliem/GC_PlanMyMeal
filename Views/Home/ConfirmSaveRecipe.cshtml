@@ -29,7 +29,7 @@
         <div class="row">
             @if (Model.UserSavedRecipe == true)
             {
-                <p>You have already saved this recipe.</p>
+                <p>You have already saved this recipe.</p>              
             }
             @if (Model.UserSavedRecipe == false)
             {
@@ -42,9 +42,9 @@
                     @Html.HiddenFor(m => m.Instructions)
                     @Html.HiddenFor(m => m.ExtendedIngredients)
                     @Html.HiddenFor(m => m.UserSavedRecipe)
-                <button type="submit" class="btn btn-outline-secondary">Yes</button>
-                </form>
-                <button type="button" class="btn btn-outline-danger" onclick="location.href='@Url.Action("Index", "Home", Model)'">No</button>
+                    <button type="submit" class="btn btn-outline-secondary">Yes</button>
+                    <button type="button" class="btn btn-outline-danger" onclick="location.href='@Url.Action("Index", "Home", Model)'">No</button>
+                </form>                
             }
         </div>
     </div>

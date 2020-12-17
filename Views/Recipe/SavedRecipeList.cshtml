@@ -6,49 +6,52 @@
 <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("CreateRecipePage", "Recipe")'">+ Create My Own Recipe</button>
 <br />
 <br />
-<table class="table">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Image</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
+<div class="shadow p-3 mb-5 bg-white rounded">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Image</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
 
-    <tbody>
-        @foreach (var item in Model)
-        {
-        <tr>
-            @if (item.CustomeRecipeId == null)
+        <tbody>
+            @foreach (var item in Model)
             {
-                <td>@item.RecipeId</td>
-            }
-            @if (item.RecipeId == null)
-            {
-                <td>@item.CustomeRecipeId</td>
-            }
-            <td>@item.Name</td>
-            <td><img src=@item.ImageURL width="100" height="74"></td>
-            <td>
-                @if (item.RecipeId != null)
-                {
-                    <button type="button" class="btn btn-outline-primary" onclick="window.open('@item.RecipeURL', '_blank')">More Info</button>
-                }
-                @if (item.CustomeRecipeId != null)
-                {
-                    <button type="button" class="btn btn-outline-primary" onclick="location.href='/Recipe/DisplayCustomRecipeInfo?customRecipeId=@item.CustomeRecipeId'">More Info</button>
+                <tr>
+                    @if (item.CustomeRecipeId == null)
+                    {
+                        <td>@item.RecipeId</td>
+                    }
+                    @if (item.RecipeId == null)
+                    {
+                        <td>@item.CustomeRecipeId</td>
+                    }
+                    <td width="200">@item.Name</td>
+                    <td><img src=@item.ImageURL width="100" height="74"></td>
+                    <td>
+                        @if (item.RecipeId != null)
+                        {
+                            <button type="button" class="btn btn-outline-primary" onclick="window.open('@item.RecipeURL', '_blank')">More Info</button>
+                        }
+                        @if (item.CustomeRecipeId != null)
+                        {
+                            <button type="button" class="btn btn-outline-primary" onclick="location.href='/Recipe/DisplayCustomRecipeInfo?customRecipeId=@item.CustomeRecipeId'">More Info</button>
 
-                }
-                <button type="button" class="btn btn-outline-danger" onclick="location.href='@Url.Action("DeleteSavedRecipe", "Recipe", item)'">Delete</button>
-                <button type="button" class="btn btn-outline-success" onclick="location.href='@Url.Action("MealPlanningForm", "MealPlanning", item)'">+ To Meal Plan</button>
-                @if (item.RecipeId == null)
-                {
-                    <button type="button" class="btn btn-outline-success" onclick="location.href='@Url.Action("EditCustomRecipe", "Recipe", item)'">Edit Custom Recipe</button>
-                }
+                        }
+                        <button type="button" class="btn btn-outline-danger" onclick="location.href='@Url.Action("DeleteSavedRecipe", "Recipe", item)'">Delete</button>
+                        <button type="button" class="btn btn-outline-success" onclick="location.href='@Url.Action("MealPlanningForm", "MealPlanning", item)'">+ To Meal Plan</button>
+                        @if (item.RecipeId == null)
+                        {
+                            <button type="button" class="btn btn-outline-info" onclick="location.href='@Url.Action("EditCustomRecipe", "Recipe", item)'">Edit Custom Recipe</button>
+                        }
 
-            </td>
-        </tr>
-        }
-    </tbody>
-</table>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

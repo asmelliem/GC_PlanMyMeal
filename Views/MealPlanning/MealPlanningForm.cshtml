@@ -3,7 +3,7 @@
     ViewBag.Title = "Meal Plan Form";
 }
 
-<form asp-controller="MealPlanning" asp-action="SaveMealPlan" method="post">
+<form asp-controller="MealPlanning" asp-action="SaveMealPlan" method="post" class="shadow p-3 mb-5 bg-white rounded">
     @if (Model.CustomRecipeId != null)
     {
         <div class="form-group">

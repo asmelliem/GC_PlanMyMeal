@@ -6,7 +6,7 @@
 @model RecipeConfirmationInfoViewModel
 
 <h2 class="text-center">@Model.Title</h2>
-<body>
+<body class="shadow p-3 mb-5 bg-white rounded">
     <div class="container">
         <div class="row">
             <div class="col">
@@ -23,12 +23,15 @@
                     {
                         <li>@ingredient.Amount @ingredient.Unit @ingredient.Name</li>
                     }
-                </ul>                
+                </ul>
             </div>
         </div>
+        <br />
+        <br />
         <div class="row">
             @if (Model.UserSavedRecipe == true)
             {
+<<<<<<< HEAD
                 <p>You have already saved this recipe.</p>              
             }
             @if (Model.UserSavedRecipe == false)
@@ -45,6 +48,19 @@
                     <button type="submit" class="btn btn-outline-secondary">Yes</button>
                     <button type="button" class="btn btn-outline-danger" onclick="location.href='@Url.Action("Index", "Home", Model)'">No</button>
                 </form>                
+=======
+                <p>You have already saved this recipe.</p>
+                <br />
+                <br />
+            }
+            @if (Model.UserSavedRecipe == false)
+            {
+                <p>Are you sure you would like to save this recipe?     </p>
+                <br />
+                <br />
+                <button type="button" class="btn btn-outline-success" onclick="location.href='@Url.Action("SaveRecipe", "Home", Model)'">Yes</button>
+                <button type="button" class="btn btn-outline-danger" onclick="location.href='@Url.Action("Index", "Home", Model)'">No</button>
+>>>>>>> buttons and shadow also added select intolerances line
             }
         </div>
     </div>

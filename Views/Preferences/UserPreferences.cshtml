@@ -3,10 +3,11 @@
     ViewBag.Title = "User Preferences";
 }
 
-<h3>Please Choose Your Preferences For The Meal Of The Day</h3>
+<h3>Please Choose Your Preferences Random Surprise Recipes</h3>
+
 <br />
 
-<form asp-controller="Preferences" asp-action="SavePreferences" method="post">
+<form asp-controller="Preferences" asp-action="SavePreferences" method="post" class="shadow p-3 mb-5 bg-white rounded" width="600px">
     <div class="form-group">
         <label>Diet</label>
         <select asp-for="@Model.Diet" name="Diet" type="Text" class="form-control">
@@ -26,6 +27,8 @@
     </div>
     <div class="form-group">
         <div class="form-check form-check-inline">
+            <label>Select Your Intolerances</label>
+            <br />
             <input asp-for="@Model.Intolerances.egg" type="checkbox" class="form-check-input" id="inlineCheckbox1">
             <label class="form-check-label" for="inlineCheckbox1">Egg</label>
         </div>

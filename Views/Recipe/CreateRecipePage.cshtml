@@ -15,7 +15,7 @@
 }
 <br />
 <br />
-<div>
+<div class="shadow p-3 mb-5 bg-white rounded">
     <form asp-controller="Recipe" asp-action="CreateRecipe" method="post">
         <div class="form-group">
             <input asp-for="@Model.Id" type="text" class="form-control" name="id" hidden>
@@ -38,11 +38,11 @@
         </div>
         @if (Model.Id == null)
         {
-            <button type="submit" class="btn btn-primary mb-2">Create Recipe</button>
+            <button type="submit" class="btn btn-outline-primary">Create Recipe</button>
         }
         @if (Model.Id != null)
         {
-            <button type="submit" class="btn btn-primary mb-2">Edit Recipe</button>
+            <button type="submit" class="btn btn-outline-primary">Edit Recipe</button>
         }
     </form>
 </div>

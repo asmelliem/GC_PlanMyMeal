@@ -34,7 +34,16 @@
             @if (Model.UserSavedRecipe == false)
             {
                 <p>Are you sure you would like to save this recipe?</p><br /><br />
-                <button type="button" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("SaveRecipe", "Home", Model)'">Yes</button>
+                <form asp-action="SaveRecipe" asp-controller="Home" method="post">
+                    @Html.HiddenFor(m => m.Id)
+                    @Html.HiddenFor(m => m.Title)
+                    @Html.HiddenFor(m => m.Image)
+                    @Html.HiddenFor(m => m.Summary)
+                    @Html.HiddenFor(m => m.Instructions)
+                    @Html.HiddenFor(m => m.ExtendedIngredients)
+                    @Html.HiddenFor(m => m.UserSavedRecipe)
+                <button type="submit" class="btn btn-outline-secondary">Yes</button>
+                </form>
                 <button type="button" class="btn btn-outline-danger" onclick="location.href='@Url.Action("Index", "Home", Model)'">No</button>
             }
         </div>

@@ -136,6 +136,7 @@ namespace GC_PlanMyMeal.Controllers
         }
 
         //Calls the respository client to save the recipe to the database
+        [HttpPost]
         public async Task<IActionResult> SaveRecipe(RecipeConfirmationInfoViewModel recipeInfo)
         {
             try
